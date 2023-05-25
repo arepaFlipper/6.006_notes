@@ -69,7 +69,7 @@ $
 
 $\vdots$
 
-$T(n) = \underbrace{\Theta(1) + \cdots + \Theta(1)}_{\Theta(\log_{2} n)} = \Theta(\log_{2} n)$
+$T(n) = \underbrace{\Theta(1) + \cdots + \Theta(1)}_{\Theta(\log_2 n)} = \Theta(\log_{2} n)$
 
 
 ## 2D-dimensional version:
@@ -130,4 +130,4 @@ $T(n,m) = T(n,\frac{m}{2}) + \underbrace{\Theta(n)}_{max}$
 
 $T(n,1) = \Theta(n)$
 
-$T(n,m) = \underbrace{\Theta(n)+ \cdots + \Theta(n)}_{\log_{2} m}= \Theta(n \cdot \log_{2} m)$
+$T(n,m)=$ $\underbrace{\Theta(n)+ \cdots + \Theta(n)}_{\log_2 m}$ $=\Theta(n \cdot \log_2 m)$
