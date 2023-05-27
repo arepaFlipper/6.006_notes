@@ -85,13 +85,13 @@ The Pointer Machine is basically a weaker model than the RAM because you can imp
 with a Random Access Machine.
 
 ## Python Model
-1. List: it is what in data structures is known as `array`, it could be thought of as a list, but the implementation is an array.
+### 1. List: it is what in data structures is known as `array`, it could be thought of as a list, but the implementation is an array.
 In python, when you have a list `L`, and you do something like:
 ```
 L[i] = L[j] + 5 # This operation takes O(1) time.
 ```
 
-2. Object with $O(1)$ number of attributes.
+### 2. Object with $O(1)$ number of attributes.
 ```
 x=x.next # This operation takes O(1) time. 
 ```
@@ -101,24 +101,26 @@ L.append(x) # This operation takes O(1) time.
 ```
 
 To operate the concatenation of two arrays `L=L1+L2` the equivalent operation:
-<div style="display: flex; align-items: start; justify-content:start;">
-    <div>
-        <pre style="width: 150px;"><code>
-L=[]
-for x in L1:
-    L.append(x)
-for x in L2:
-    L.append(x)
-        </code></pre>
-    </div>
-    <div style="flex: 1;">
-        <img src="Pointers4.jpg" alt="RAM array" width="500" height="178">
-    </div>
-</div>
 
+![Concatenation](Pointers5.jpg)
 The concatenation of the two arrays is NOT constant time ($O(1)$)
 which means it takes $O(n)$ time.
 
 The operations:
 - `x in L` takes $O(n)$ time.
 - `len(L)` takes $O(1)$ time.
+- `L.sort()` -> $O(|L| \log(|L|))$ 
+time. (Lecture 3,4 and 7)
+
+### 3. Dictionaries:
+```
+d[key] = value # This operation takes O(1) time.
+```
+(Lectures 8 to 10)
+
+### 4. Longs:
+Long integers (lecture 11)
+`x + y`  takes $O(|x| + |y|)$
+`x * y`  takes $O((|x| + |y|)^{Log_2(3)})$
+
+(Note: $lg = log_2$)
