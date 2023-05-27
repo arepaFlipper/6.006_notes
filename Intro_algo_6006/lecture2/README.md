@@ -68,6 +68,7 @@ then you can write them back to store them in locations that are specified by th
 This is what Assembly programming is like. It is in some sense annoying to humans to write algorithms 
 with this model but it makes sense to computers.
 
+
 #### 2. Pointer Machine
 - dynamically allocated objects.
 - Object has $O(1)$ fields.
@@ -90,6 +91,8 @@ In python, when you have a list `L`, and you do something like:
 ```
 L[i] = L[j] + 5 # This operation takes O(1) time.
 ```
+
+(w.h.p.: With High Probability)
 
 ### 2. Object with $O(1)$ number of attributes.
 ```
@@ -123,4 +126,80 @@ Long integers (lecture 11)
 `x + y`  takes $O(|x| + |y|)$
 `x * y`  takes $O((|x| + |y|)^{Log_2(3)})$
 
-(Note: $lg = log_2$)
+(Note: $lg$ means $\log_2$)
+
+### 5. Heap Queue:
+lecture 4
+
+## Document Distance Problem
+$d(D_{1},D_{2})$
+
+- $D_{1}:$ Document 1 
+
+- $D_{2}:$ Document 2
+
+- Document: sequence of words.
+- word: a string of alphanumeric characters.
+
+The distance function is used in case as:
+- Assess two almost identical websites, because then you store less 
+and you can have a canonical page and present it differently to users.
+- In Wikipedia, there is a list of all mirrors of articles 
+and find the specific with this function
+- To detect cheating in two problem sets that are identical. 
+- Web search.
+- Idea: look for shared words.
+- Think of a document as a vector.
+$D(w):$ # occurrence of w(word) in document
+
+Every document could be illustrated in the following diagram where one of this occurrences
+is one of these plots in this common axis:
+![Document Distance](Pointers6.jpg)
+
+#### Example:
+- $D_0 =$ <span style="color:cyan">"the dog"</span>
+- $D_1 =$ <span style="color:pink">"the cat"</span>
+![Document Distance](Distance0.jpg)
+
+#### Apply inner product(dot product):
+To find the distance between two documents:
+
+$d(\vec{D_{1}},\vec{D_{2}}) = \vec{D_{1}} \cdot \vec{D_{2}}$ = 
+$\displaystyle\sum_{w} \vec{D_{1}}[w] \cdot \vec{D_{2}}[w]$
+
+Divide by length of the vectors:
+
+$d(\vec{D_{1}},\vec{D_{2}})$ = $\displaystyle{\frac{\vec{D_{1}} \cdot \vec{D_{2}}}{|\vec{D_{1}}| \cdot |\vec{D_{2}}|}}$
+
+ = $\arccos\left({\frac{\vec{D_{1}} \cdot \vec{D_{2}}}{|\vec{D_{1}}| \cdot |\vec{D_{2}}|}}\right)$
+
+### Initial Algorithm:
+1) Split document into words.
+2) Compute word frequencies.
+3) Dot product.
+
+#### Algorithm improvements:
+1) 228.1 seconds.
+2) 164.7 seconds.
+3) 123.1 seconds.
+4) 71.7 seconds.
+5) 18.3 seconds.
+6) 11.5 seconds.
+7) 1.8 seconds.
+8) 0.2 seconds.
+
+###### Algorithm:
+1) Split document into words.
+2) Compute word frequencies.
+3) Dot product.
+```
+for word in document:
+  count[word] += 1  
+```
+![Document Distance](Distance1.jpg)
+
+We implement this in python with:
+```
+re.findall(r'\w+', document)
+```
+The problem is that this could take $O(e^n)$ exponential time.
