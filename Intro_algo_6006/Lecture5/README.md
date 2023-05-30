@@ -114,7 +114,7 @@ If you didn't have to check, we would put the $42$ into:
 
 ![BST example](BST17.jpg)
 
-But because you have to check, the insertion fails 🚫
+But because you have to check the element lies in range t-k or t+k, the insertion fails 🚫
 because it violates k constraint.
 ![BST example](BST18.jpg)
 
