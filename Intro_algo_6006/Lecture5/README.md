@@ -135,3 +135,48 @@ next_larger$(x)$
 | Function  | Description| Time Complexity |
 |--------- | --------- | -------------- |
 | Rank(t)    | How many planes are scheduled to land at times $\leq t$ ?||
+
+#### Augment the BST structure
+![BST example](BST19.jpg)
+
+Insert or delete modifying "<span style="color:yellow">size</span>" numbers, 
+these numbers corresponds to <span style="color:yellow">subtrees sizes</span>.
+![BST example](BST20.jpg)
+
+##### How to calculate the size?
+You want to think about this as you started with an empty 
+set and you kept inserting into it, and you were doing a sequence
+of insert and delete operations, and if I explain to you how an 
+insert operation modifies these numbers, that is pretty much all 
+you need. 
+To summarize the total of descendent nodes plus itself:
+
+Let's do an example adding a 43 node into the tree:
+![BST example](BST21.jpg)
+
+The analog case for deleting a node.
+
+##### What lands before t?
+For snapshot of the tree:
+![BST example](BST22.jpg)
+
+1. Walk down tree to find desired time.
+2. Add in the nodes that one smaller
+3. Add in the subtrees size to the left.
+
+###### Example:
+$t= 79$ 
+
+| step  | Description   | 
+|-------------- | -------------- | 
+| 1    | Look at 49     | 
+| 2    | Compare to 79| 
+| 3    | Add 1| 
+| 4    | Move the right | 
+| 5    | add 2 | 
+| 6    | Subtree 46 | 
+| 7    | see 79 and add 1| 
+| 8    | go to the left of 79 | 
+| 9    | add 1 corresponding to the 64 | 
+| 10    | final answer 5| 
+
