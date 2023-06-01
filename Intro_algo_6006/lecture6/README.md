@@ -158,12 +158,9 @@ From the changed node, up:
 
 | operation  | Column2   | Column3   | Data structure |
 |----------- | ----------| ----------| -----   |
-| insert     | priority queue | Balanced BST | |
+| insert     | priority queue | Balanced BST | heap AVL |
 | delete     | priority queue | Balanced BST | |
 | min        | priority queue | Balanced BST | |
 | successor  |                | Balanced BST | |
 | predecessor|                | Balanced BST | |
 
-- insert & delete.
-- min
-- succerssor/predecessor.
