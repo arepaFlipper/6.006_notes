@@ -2,13 +2,19 @@
 
 One-dimensional version:
 
-a-i are natural numbers.
+Numbers in range `a - i` are natural numbers.
 
-![array of natural numbers](array.jpeg)
+![array of natural numbers](hash0.jpg)
 
-Position "2" is a peak $\text{iff } b \geq a$ and $b \geq c$.
+**Position `2` is a peak:** 
+![array of natural numbers](hash4.jpg)
 
-Position "9" is a peak $\text{iff } i \geq h$.
+  $\text{iff } (b \geq a)$ & $(b \geq c)$.
+
+**Position `9` is a peak:**
+![array of natural numbers](hash1.jpg)
+
+  $\text{iff } (i \geq h)$.
 
 #### Problem:
 Find the peak if it exists.
