@@ -45,7 +45,7 @@ We start with array of empty slots:
 
   <img style="display: block; margin-left: auto; margin-right: auto;" src="table10.jpg" alt="Description" width="300" height="200">
 
-Now we probe some additional insertions:
+**Example:** Insert $k=496$
 <img style="display: block; margin-left: auto; margin-right: auto;" src="table13.jpg" alt="Description" width="300" height="200">
 
 `Insert(k,v)`: keep probing until an empty slot is found. Insert
@@ -59,7 +59,6 @@ for i in range(m):
 raise 'full'
 ```
 
-**Example:** Insert $k=496$
 
 **Search(k):** As long as the slots you encounter by probing are occupied by $keys \neq k,$
 keep probing until you either encounter $k$ or find an empty slot --- return success or
@@ -74,15 +73,20 @@ for i in range(m):
 return None               # exhausted table
 ```
 
-![Insert Example](table2.jpg)
 
 <span style="color:yellow; font-weight: bold"> Deleting items? </span>
 - can't just find item and remove it from its slot (i.e. set $T[h(k,i)]=None$)
 - example: $delete(586) \implies search(496)$ fails
-- replace item with special flag: "DeleteMe", which Insert treats as Node but
-search doesn't.
+<img style="display: block; margin-left: auto; margin-right: auto;" src="table15.jpg" alt="Description" width="300" height="200">
+- replace item with special flag: "DeleteMe", which Insert treats as None but 
+search doesn't. 
+
+  Search keeps going and treats different from None.
+<img style="display: block; margin-left: auto; margin-right: auto;" src="table16.jpg" alt="Description" width="300" height="200">
 
 ## Probing Strategies
+This is essentially the same as taking a hash function and changing it 
+so it is actually applicable to open addressing.
 ### Linear Probing
 $h(k,i) = (h'(k)+i) \cdot mod \cdot m$ 
 
