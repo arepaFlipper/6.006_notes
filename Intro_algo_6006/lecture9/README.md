@@ -10,7 +10,8 @@
 ![Hashing with Chaining](hash0.jpg)
 
 __Expected cost (insert/delete/search):__ $\Theta(1+\alpha)$, assuming simple
-uniform hashing $OR$ universal hashing $\&$ hash function $h$ takes $O(1)$ time. 
+uniform hashing "$OR$" universal hashing "$\&$" hash function $h$ takes $O(1)$ time.
+As long as $\alpha$ is a constant, we get $\Theta(1)$ time.
 
 ### Division Method:
 
@@ -26,14 +27,41 @@ Where `a` is a random odd integer between $2^{\omega-1}$ and $2^{\omega}$, $k$
 is given by $\omega$ bits, and $m=\text{table}$ $\text{size}=2^r$.
 
 ## How Large should Table be?
+What should $m$ (in expected chain length $\alpha=\frac{n}{m}$ ) be?
 
+##### how to choose $m$?
 - want $m = \Theta(n)$ at all times.
 - don't know how large $n$ will get at creation.
-- $m$ too $\text{small}\implies\text{slow}$ slow; $m$ too big $\implies$ wasteful.
+- $m$ too $\text{small}\implies\text{slow}$; $m$ too big $\implies$ wasteful.
 
 ### Idea:
 Start small (constant) and grow (or shrink) as necessary.
 
+$m_{initial}=8$
+
+If ($n>m$): grow the table
+
+#### Grow the table: $m \to m'$
+- make table of size $m'$
+- build new hash $h'$
+- rehash:
+```
+for item in old_table:
+  new_table.insert(item)
+```
+$\implies \Theta(n+m+m')$ 
+
+The hash function is all about mapping the universe of keys
+to a table of size m, so if $m$ changes, we definitely need
+a new hash function. If you use the old hash function, you 
+would just use the beginning of the table.
+
+If you add more slots, you are not going to use them.
+
+![Resizeable array](hash4.jpg)
+
+For every key you've got to rehash it and figure out where it 
+goes.
 ### Rehashing:
 To grow or shrink table hash function must change $(m,r)$
 
@@ -46,17 +74,23 @@ for item in old table: # -> for each slot, for item in slot
 $\implies \Theta(n+m) \text{ time} = \Theta(n)$ if $m=\Theta(n)$ 
 
 ### How fast to grow?
+__How much bigger m should be?__ (<span style="color:green">correct answer $m'=2\cdot m$</span>)
+
 When $n$ reaches $m$, say
-- $m+ = 1$?
+- __$m' = m+1$:__ 
 
-    $\implies$ rebuild every step
+  $\implies$ rebuild every step
 
-    $\implies$ n inserts cost $\Theta(1+2+\cdots+n)=\Theta(n^2)$
-- $m* = 2$? $m=\Theta(n)$ still $(r+=1)$
+  $\implies$ n inserts cost $\Theta(1+2+3+4\cdots+n)=$<span style="color:red">$\Theta(n^2)$ horrible time</span>
 
-    $\implies$ rebuild at insertion $2^i$
+- $m'=2 \cdot m$: 
 
-    $\implies$ n inserts cost $\Theta(1+2+\cdots+\underbrace{n}_{\text{the next power of 2}})=\Theta(n)$
+
+  $m=\Theta(n)$ still $(r+=1)$
+
+  $\implies$ rebuild at insertion $2^i$
+
+  $\implies$ n inserts cost $\Theta(1+2+4+8\cdots+\underbrace{n}_{\text{the next power of 2}})=\Theta(n)$
 
 - a few inserts cost linear time, but $\Theta(1)$ "on average".
 
@@ -64,8 +98,15 @@ When $n$ reaches $m$, say
 <span style="color:green">This is a common technique in data structures — like paying rent: 
 $\frac{\$1500}{\text{month}}$ $\approx$ $\frac{\$50}{\text{day}}$</span>
 
-- Operation has <u>amortized cost</u> $T(n)$ if $k$ operations cost $\leq k\cdot T(n)$
+- Operation has <u>amortized cost</u> $T(n)$ if $k$ operations take: (cost) $\leq k\cdot T(n)$
 - "$T(n)$ amortized" roughly means $T(n)$ "on average", but averaged over all operations.
+  - Table doubling:
+   `k` inserts take $\Theta(k)$ time.
+
+    $\implies O(1)$ amortized/insert
+
+    - also `k` inserts & deletes take $\Theta(k)$ time.
+
 - e.g. insertion into a hash table takes $O(1)$ amortized time.
 
 ### Back to Hashing:
@@ -89,18 +130,24 @@ $size \implies O(1)$ amortized cost for both insert and delete --- analysis is h
 Given two strings $s$ and $t$, does $s$ occur as a substring of $t$? (and if so, where and how 
 many times?)
 
-E.g. $s='6.006'$ and $t =$ your entire INBOX (<span style= "color:green">'grep' on UNIX</span>)
+E.g. `s='6.006'` and $t:$ your entire INBOX (<span style= "color:green">'grep' on UNIX</span>)
 
 ### Simple Algorithm:
 ```
 any(s== t[i:i+len(s)]) for i in range(len(t) - len(s)) 
 ```
-- O(|s|) time for each substring comparison
-$implies O(|s|\cdot(|t|-|s|))$ time
+- $O(|s|)$ time for each substring comparison
+$\implies \Theta(|s|\cdot(|t|-|s|))$ time
 
 $=O(|s|\cdot|t|)$ <span style= "color:green">potentially quadratic</span>
 
 ![Illustration of Simple Algorithm for the String Matching Problem](hash6.jpg)
+
+### Rolling Hash ADT
+Maintain string $x$ subject to
+- `r():` reasonable hash function $h(x)$ on string $x$.
+- `r.append(c)` add letter `c` to end of string `x`.
+- `r.skip(c)` remove front letter from string `x`, assuming it is `c`
 
 ### Karp-Rabin Algorithm
 - Compare `h(s) == h(t[i: i + len(s)])`
@@ -115,12 +162,6 @@ $=O(|s|\cdot|t|)$ <span style= "color:green">potentially quadratic</span>
   - naively $h(x) \cdot costs |x|$
   - we'll achieve $O(1)!$
   - idea: `t[i: i + len(s)]` $\approx$ `t[i+1:i+1+len(s)]`.
-
-### Rolling Hash ADT
-Maintain string $x$ subject to
-- `r():` reasonable hash function $h(x)$ on string $x$.
-- `r.append(c)` add letter `c` to end of string `x`.
-- `r.skip(c)` remove front letter from string `x`, assuming it is `c`
 
 ### Karp-Rabin Application
 ```
