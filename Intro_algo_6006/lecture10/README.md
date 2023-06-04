@@ -1,30 +1,52 @@
-# Open Addressing
-- Open Addressing, Probing Strategies.
-- Uniform hashing analysis
+# Hashing III:Open Addressing
+- Open Addressing, Probing Strategies (with single array DS).
+- Uniform hashing analysis (making open addressing efficient)
 - Cryptographic hashing
 
 ## Open Addressing
 Another approach to collisions:
 
-- no chaining; instead all items stored in table:
+- no chaining; instead all items stored in hash table (array because we want to avoid pointers):
 ![Open Addressing Table](table0.jpg)
+- one item per slot:
 
-- one item per slot $\implies m\geq n$
-- hash function specifies order of slots to probe (try) for a key
-(for insert/search/delete), not just one slot; **in math. notation:**
+  $\implies m\geq n$
 
-    we want to design a function h, with the property that 
-    for all k $\in \vartheta$: 
+  where:
+  - $m$: the number of slots in the table
+  - $n$: the number of elements in the table
 
-    $h:\underbrace{\vartheta}_{universe of keys} \times 
+### Probing
+- hash function specifies order of slots, to probe (try) for a key
+(for insert/search/delete), 
+
+    We want to design a function $h$, with the property that 
+    for all  $k \in \vartheta$: 
+
+    $h:\underbrace{\vartheta}_{\text{universe of keys}} \times 
     \underbrace{\{0,1, \dots,m-1\}}_{\text{trial count}}
     \to\underbrace{\{0,1, \dots,m-1\}}_{\text{slot in table}}$
 
-    $\left<h(k,0),h(k,1),\dots,h(k,m-1)\right>$
+    $\left< h(k,0),h(k,1),\dots,h(k,m-1) \right>$
 
 is a permutation of $0,1,\dots,m-1$. i.e. if I keep trying $h(k,i)$
 for increasing $i$, I will eventually hit all slots of the table.
-  ![Order of probes](table1.jpg)
+
+We start with array of empty slots:
+  <img style="display: block; margin-left: auto; margin-right: auto;" src="table7.jpg" alt="Description" width="200" height="200">
+  
+  Compute `h(586,1)` to insert 586:
+  
+  <img style="display: block; margin-left: auto; margin-right: auto;" src="table9.jpg" alt="Description" width="300" height="200">
+
+  The operation returns `1`
+
+  Now we compute `h(133,2)`, `h(204,4)` and `h(481,6)`:
+
+  <img style="display: block; margin-left: auto; margin-right: auto;" src="table10.jpg" alt="Description" width="300" height="200">
+
+Now we probe some additional insertions:
+<img style="display: block; margin-left: auto; margin-right: auto;" src="table13.jpg" alt="Description" width="300" height="200">
 
 `Insert(k,v)`: keep probing until an empty slot is found. Insert
 item into that slot.
