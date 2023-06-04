@@ -82,7 +82,7 @@ return None               # exhausted table
 search doesn't. 
 
   Search keeps going and treats different from None.
-<img style="display: block; margin-left: auto; margin-right: auto;" src="table16.jpg" alt="Description" width="300" height="200">
+<img style="display: block; margin-left: auto; margin-right: auto;" src="table18.jpg" alt="Description" width="300" height="200">
 
 ## Probing Strategies
 This is essentially the same as taking a hash function and changing it 
@@ -91,29 +91,38 @@ so it is actually applicable to open addressing.
 $h(k,i) = (h'(k)+i) \cdot mod \cdot m$ 
 
 where:
-$h'(k):$ is ordinary hash function.
+
+  $h'(k):$ is ordinary hash function.
 
 - <span style="color:cyan"> like street parking</span>
 - <span style="color:yellow"> problem?</span> clustring --- cluster: 
 consecutive group of occupied slots as clusters become longer,
-it gets more likely to grow further
-> ![Primary Clustering](table5.jpg)
+it gets more likely to grow further. Clustering is reverse of load balancing.
+> <img style="display: block; margin-left: auto; margin-right: auto;" src="table19.jpg" alt="Description" width="300" height="200">
 - can be shown that for $0.01<\alpha<0.99$ say, clusters of size
 $\Theta(\log n)$.
 
 ### Double Hashing
 $h(k,i) = (h_{1}(k) + i\cdot h_2(k)) \cdot mod \cdot m$ 
-where $h_{1}(k)$ and $h_2(k)$ are two ordinary hash functions.
+
+where:
+
+$h_{1}(k)$ and $h_2(k)$ are two ordinary hash functions.
 
 ![Primary Clustering](table5.jpg)
 
-- actually hit all slots (permutation) if $h_2(k)$ is relatively
+- Actually, hit all slots (permutation), if $h_2(k)$ is relatively
 prime to $m$ for all $k$ <span style="color:yellow; font-weight: bold"> why?</span>
 
 <span style="color:#FA7FB1; font-weight: bold; display: flex; justify-content: center"> $h1(k)+i\cdot h2(k) \cdot mod \cdot m \implies m \cdot (\text{divides}) (i-j)$ </span>
 
 - **e.g.**  $m=2^r$, make $h_2(k)$ always odd
 
+Open Addressing is easy to implement, it uses less memory, because you don't need
+pointers, but you better be careful that you $\alpha$ stays small, around $0.5$. 
+
+You have slightly different strategies for resizing your table, when you use open addressing,
+as opposed to chaining hash tables.
 #### Uniform Hashing Assumption <span style="color:green;"> (cf. Simple Uniform Hashing Assumption)</span>
 
 Each key is equally likely to have any one of the $m!$ permutations as its probe sequence
@@ -123,7 +132,12 @@ Each key is equally likely to have any one of the $m!$ permutations as its probe
 ### Analysis
 Suppose we have used open addressing to insert $n$ items into table of size $m$.
 Under the uniform hashing assumption the next operation has expected cost of 
-$\leq \frac{1}{1-\alpha}$ where $\alpha= \frac{1}{m}$ ($<1$).
+$\leq \frac{1}{1-\alpha}$ 
+
+
+where $\alpha= \frac{1}{m}$ ($<1$)
+
+
 
  Example: $\alpha = 90\% \implies 10$ expected probes
 
@@ -193,17 +207,17 @@ OA degrades past 70% or so and in any event cannot support values larger than 1
 A cryptographic hash function is a deterministic procedure that takes an arbitrary 
 block of data and returns a fixed-size bit string, the (cryptographic) hash value, 
 such that an accidental or intentional change to the data will change the hash value. 
-The data to be encoded is often called the message, and the hash value is sometimes 
+The data to be encoded is often called the "message", and the hash value is sometimes 
 called the "message digest" or simply "digest".
 
-The ideal cryptographic has function has the properties listed below. $d$ is the number of bits
-in the uouput of the hash function. you can think of $m$ as being $2^d$. $d$ is 
+The ideal cryptographic hash function has the properties listed below. $d$ is the number of bits
+in the output of the hash function. you can think of $m$ as being $2^d$. $d$ is 
 typically 160 or more. These hash functions can be used to index hash tables, but
 they are typically used in computer security applications.
 
 #### Desirable properties
 1. **One-way (OW):** Infeasible, given $y \in R \{0,1\}^d$ to find any $x$ s.t. $h(x) = y$.
-This means that if you coose a random $d-bit$ vector, it is hard to find an input 
+This means that if you choose a random $d-bit$ vector, it is hard to find an input 
 to the hash that produces that vector. This involves "inverting" the hash function.
 
 2. **Collision-resistance (CR):** Indeasible to find $x$,$x'$, s.t. $x\neq x'$, 
