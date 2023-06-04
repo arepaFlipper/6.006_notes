@@ -58,3 +58,22 @@ $35357670, 129644790, 477638700, 1767263190, 6564120420, 24466267020, 9149256364
 $343059613650, 1289904147324, 4861946401452, 18367353072152, 69533550916004,$
 $263747951750360, 1002242216651368$
 
+### Newton's Method
+Find root of $f(x)=0$ through successive approximation e.g., $f(x)=x^2-a$
+
+<img src="pic2.jpg" style="width: 300px;display: block;margin-left: auto;margin-right: auto" alt="Newton's Method">
+
+Tangent at $x_i,f(x_i)$ is line $y=f(x_i)+$ 
+<u>$f'(x_i)$</u>
+$\cdot(x-x_i)$
+
+where $f'(x_i)$ is the derivative.
+
+$x_{i+1}:$ intercept on x-axis
+
+
+<div style="display:flex; justify-content:center">
+
+<span style="width:auto; padding: 10px;color:cyan;font-weight:bold;display:flex;justify-content:center;border:1px solid cyan"> $x_{i+1}=x_i-\frac{f(x_i)}{f'(x_i)}$ </span>
+
+</div>
