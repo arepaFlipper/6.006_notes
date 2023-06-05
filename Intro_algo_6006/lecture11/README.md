@@ -77,3 +77,61 @@ $x_{i+1}:$ intercept on x-axis
 <span style="width:auto; padding: 10px;color:cyan;font-weight:bold;display:flex;justify-content:center;border:1px solid cyan"> $x_{i+1}=x_i-\frac{f(x_i)}{f'(x_i)}$ </span>
 
 </div>
+
+### Square Roots
+
+<div style="display:flex; justify-content:center">
+
+$f(x)=x^2 -a$
+
+</div>
+<div style="display:flex; justify-content:center">
+
+$x_{i+1}=x_i-\frac{f(x_i)}{f'(x_i)}=x_i-\frac{({x_i}^2-a)}{2x_i}=\frac{x_i+\frac{a}{x_i}}{2}$
+
+</div>
+
+Example:
+
+$a=2$
+
+|  iteration   | value   |
+| ------------ | --------- |
+| $x_0$    | 1.000000000     |
+| $x_1$    | 1.500000000     |
+| $x_2$    | 1.416666665     |
+| $x_3$    | 1.414215686     |
+| $x_3$    | 1.414213562     |
+
+
+Quadratic convergence, # digits doubles. Of course, in order to use Newton's method,
+we need high-precision division. We'll start with multiplication and cover division in 
+Lecture 12.
+
+### High Precision Computation
+
+$\sqrt{2}$ to d-digit precision: $\underbrace{1.414213562372}_{d-digits} \dots$
+
+Want integer $\left[10^d\cdot \sqrt{2}\right]=\left[\sqrt{2 \cdot 10^{2d}}\right]$ --- 
+integral part of square root Can still use Newton's Method.
+
+### High Precision Multiplication
+
+Multiplying two n-digit numbers (radix r=2,10) $0\leq x,y< r^n$
+
+$x_1:$ high half
+
+$x_0:$ low half
+
+$x= x\cdot r^{\frac{n}{2}}+x_0$ 
+
+$y= y\cdot r^{\frac{n}{2}}+y_0$
+
+$0 \leq x_0,x_1 < r^{n/2}$
+
+$0 \leq y_0,y_1 < r^{n/2}$
+
+$z = x\cdot y
+= x_1\cdot y_1\cdot r^n+(x_0\cdot y_1 +x_1\cdot y_0)\cdot r^{\frac{n}{2}}+ x_0 \cdot y_0$
+
+4 multiplications of half-sized numbers $\implies$ quadratic algorithm $\Theta(n^2)$ time.
