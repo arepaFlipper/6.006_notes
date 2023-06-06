@@ -259,3 +259,145 @@ length to several hundred digits of precision using Newton's Method,
 the Catalan numbers come marching out!. Try it at:
 [Catalan Numbers](http://people.csail.mit.edu/devadas/numerics_demo/chord.html)
 
+### An Explanation
+This was not covered in lecture and will not be on a test. Let's 
+start by looking at the power series of a real-valued function $Q$.
+
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $Q(x)= c_0 + c_1 \cdot x + c_2 \cdot x^2 + c_3 \cdot x^3\dots + c_n \cdot x^n$ 
+
+  </div>
+
+$(1)$
+</div>
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $Q(x)^2 = (c_0 + c_1 \cdot x + c_2 \cdot x^2 + c_3 \cdot x^3 + \dots + c_n \cdot x^n) \cdot (c_0 + c_1 \cdot x + c_2 \cdot x^2 + c_3 \cdot x^3 + \dots + c_n \cdot x^n)$
+
+  </div>
+
+$(2)$
+</div>
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+$Q(x)^2 = c_0^2 + 2c_0c_1x + 2c_0c_2x^2 + 2c_0c_3x^3 + \dots + 2c_0c_nx^n c_1^2x^2 + 2c_1c_2x^3 + 2c_1c_3x^4 + \dots + 2c_1c_nx^{n+1} c_2^2x^4 + 2c_2c_3x^5 + \dots + 2c_2c_nx^{n+2} \dots c_n^2x^{2n}$
+
+  </div>
+
+$(3)$
+</div>
+
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $x\cdot Q(x)^2 = c_2\cdot x + 2\cdot(c_0\cdot c_1)\cdot x^2 + (c_0c_2 + c_1c_1 + c_2c_0)\cdot x^3 + \dots$ 
+
+  </div>
+
+$(5)$
+</div>
+
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $1 + x\cdot Q(x)^2 = 1 + c_2\cdot x + 2\cdot(c_0\cdot c_1)\cdot x^2 + (c_0c_2 + c_1c_1 + c_2c_0)\cdot x^3 + \dots$ 
+
+  </div>
+
+$(6)$
+</div>
+Now consider the equation:
+
+<div style="display:flex; justify-content:center">
+
+$Q(x)=1 + x\cdot Q(x)^2$
+</div>
+
+For this equation to hold, the power series of $Q(x)$ must equal 
+the power series of $1 + x\cdot Q(x)^2$. This happens only if all 
+the coefficients of the two power series are equal; that is, if:
+
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $c_0 = 1$ 
+
+  </div>
+
+$(7)$
+</div>
+
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $c_1 = {c_0}^2$ 
+
+  </div>
+
+$(8)$
+</div>
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $c_2 = {c_0}\cdot {c_1} + {c_1}\cdot {c_0}$ 
+
+  </div>
+
+$(9)$
+</div>
+
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $c_3 = {c_0}\cdot {c_2} + {c_1}\cdot {c_1} + {c_2}\cdot {c_0}$ 
+
+  </div>
+
+$(10)$
+</div>
+
+In other words, the coefficients of the function $Q$ must be the Catalan numbers!
+
+  - We can solve for $Q$ using the quadratic equation:
+
+<div style="display:flex; justify-content:space-around">
+  <div>
+
+  $Q(x)= \frac{1 \pm \sqrt{1-4x}}{2\cdot x}$
+
+  </div>
+
+  $(11)$
+</div>
+
+Let's use the negative square root. From this formula for $Q$, we find:
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $10^{-12}\cdot Q(10^(-24))= 10^{-12} \cdot \frac{1 \pm \sqrt{1-4\cdot(10^{-24})}}{2\cdot (10^{-24})}$ 
+
+  $10^{-12}\cdot Q(10^(-24))= 5000000000 - \sqrt{\underbrace{  5000000000^{2} - 1}_{a}}$
+
+  </div>
+
+$(12)$
+</div>
+
+Form the original power-series expression for $Q$, we find:
+<div style="display:flex; justify-content:space-between">
+  <div>
+
+  $10^{-12}\cdot Q(10^{-24})= c_0\cdot 10^{-12} + c_1\cdot 10^{-36} + c_2\cdot 10^{-60} + c_3\cdot 10^{-84} + \dots$ 
+
+
+  </div>
+
+$(12)$
+</div>
+
+Therefore, $5000000000 - \sqrt{5000000000^{2} - 1}$ should contain a Catalan number 
+in every twenty-fourth position, which is what we observed.
