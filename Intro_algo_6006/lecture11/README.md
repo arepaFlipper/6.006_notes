@@ -125,7 +125,7 @@ Lecture 12.
 
 $\sqrt{2}$ to d-digit precision: $\underbrace{1.414213562372}_{d-digits} \dots$
 
-Want integer $\left[10^d\cdot \sqrt{2}\right]=\left[\sqrt{2 \cdot 10^{2d}}\right]$ --- 
+Want integer $\lfloor10^d\cdot \sqrt{2}\rfloor=\lfloor[\sqrt{2 \cdot 10^{2d}}\rfloor$ --- 
 integral part of square root Can still use Newton's Method.
 
 ### High Precision Multiplication
