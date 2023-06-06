@@ -212,3 +212,50 @@ $T(n)= \Theta\left(n^{1.5849625\dots}\right)$
 This is better than $\Theta(n^{2})$. Python does this, and more (see Lecture 12).
 
 ## Fun Geometry Problem
+
+<img src="pic7.jpg" style="width:300px;display:block;margin-left:auto;margin-right:auto">
+
+<span style="color:rgb(147,120,227)">
+
+$BD=1$
+
+</span>
+
+Whats is 
+<span style="color:rgb(243,186,56)">
+$AD$
+</span>
+?
+
+<div style="display:flex; justify-content:center">
+  <span style="color:rgb(243,186,56)">
+
+  $AD=$
+
+  </span>
+
+  $AC -$
+
+  <span style="color:rgb(106,192,200)">
+
+  $CD$
+
+  </span>
+
+  <span style="color:rgb(243,186,56)">
+
+  $=500.000'000.000 - \sqrt{\underbrace{  500.000'000.000^{2} - 1}_{a}}$
+
+  </span>
+</div>
+
+Let's calculate
+<span style="color:rgb(243,186,56)">
+$AD$
+</span>
+to a million places. (This assumes we have high-precision division, 
+which we will cover in Lecture 12). Remarkably, if we evaluate the 
+length to several hundred digits of precision using Newton's Method,
+the Catalan numbers come marching out!. Try it at:
+[Catalan Numbers](http://people.csail.mit.edu/devadas/numerics_demo/chord.html)
+
