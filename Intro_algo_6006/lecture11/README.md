@@ -135,3 +135,80 @@ $z = x\cdot y
 = x_1\cdot y_1\cdot r^n+(x_0\cdot y_1 +x_1\cdot y_0)\cdot r^{\frac{n}{2}}+ x_0 \cdot y_0$
 
 4 multiplications of half-sized numbers $\implies$ quadratic algorithm $\Theta(n^2)$ time.
+
+## karatsuba's Method
+
+![branching factors 4T](pic3.jpg)
+<span style="color:rgb(135,69,69);display:flex;justify-content:center">$4T\cdot(\frac{n}{2})$</span>
+<span style="color:rgb(135,69,69);display:flex;justify-content:center">$4^{\log_2 n}=n^{log_2 4}=n^{2}$</span>
+
+![branching factors 3T](pic4.jpg)
+<span style="color:rgb(40,135,88);display:flex;justify-content:center">$3T\cdot(\frac{n}{2})$</span>
+<span style="color:rgb(40,135,88);display:flex;justify-content:center">$3^{\log_2 n}=n^{log_{2} 3}$</span>
+
+
+Let 
+
+<span style="color:rgb(250,127,177)">
+
+$z_0=x_0 \cdot y_0$
+
+</span>
+
+<span style="color:rgb(193,243,0)">
+
+$z_2=x_1 \cdot y_1$
+
+</span>
+
+<span style="color:rgb(243,186,56)">
+
+$z_1= (x_0 + x_1) \cdot (y_0 + y_1) - z_2 - z_0= x_0\cdot y_1 + x_1 \cdot y_0$
+
+$z_1 = (x_0 \cdot y_0 + x_0 \cdot y_1 + x_1 \cdot y_0 + x_1 \cdot y_1) - z_2 - z_0$
+
+$z_1 = x_0 \cdot y_0 + x_0 \cdot y_1 + x_1 \cdot y_0 + x_1 \cdot y_1 - z_2 - z_0$
+
+$z_1 = x_0 \cdot y_1 + x_1 \cdot y_0$
+
+</span>
+
+$z=$ 
+<span style="color:rgb(193,243,0)">
+$z_2$ 
+</span>
+$\cdot r^{n} +$ 
+<span style="color:rgb(243,186,56)">
+$z_1$ 
+</span>
+$\cdot r^{n/2}+$ 
+<span style="color:rgb(250,127,177)">
+$z_0$
+</span>
+
+There are three multiplies in the above calculations.
+
+<span style="color:rgb(40,135,88);display:flex;justify-content:center">
+
+$T(n):$ time to multiply two n-digit numbers
+
+</span>
+<span style="color:rgb(40,135,88);display:flex;justify-content:center">
+
+$T(n)= 3T(\frac{n}{2}+ \Theta(n))$
+
+</span>
+<span style="color:rgb(40,135,88);display:flex;justify-content:center">
+
+$T(n)= \Theta(n^{log_2{3}})$
+
+</span>
+<span style="color:rgb(40,135,88);display:flex;justify-content:center">
+
+$T(n)= \Theta\left(n^{1.5849625\dots}\right)$
+
+</span>
+
+This is better than $\Theta(n^{2})$. Python does this, and more (see Lecture 12).
+
+## Fun Geometry Problem
