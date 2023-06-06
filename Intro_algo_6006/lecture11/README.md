@@ -7,7 +7,8 @@
 ## Irrationals
 Pythagoras discovered that a square's diagonal and its side
 are incommensurable, i.e., could not be expressed as a ratio -
-he called the ratio "speecheless"!
+he called the ratio "speecheless"!, because it is something
+he could explain.
 
 <img src="pic0.jpg" style="width: 300px;display: block;margin-left: auto;margin-right: auto" alt="Ratio of a Square's Diagonal to its Sides">
 
@@ -19,16 +20,18 @@ Are there hidden patterns in irrationals?
 
 $\sqrt(2)= 1.$ $414$ $213$ $562$ $373$ $095$ $048$ $801$ $688$ $724$ $209$ $698$ $078$ $569$ $671$ $875$ 
 
-Can you see a pattern?
+Can you see a pattern? No way!
 
 #### Digression
 ##### Catalan numbers:
+You can think of the Catalan numbers as representing the cardinality of the set P 
+of balanced parentheses strings.
+
 Set P of <u>balanced</u> parentheses strings are recursively defined as:
+1. $\lambda \in P$ ($\lambda$ is empty string)
+2. If "$\alpha$" and "$\beta" \in P$, then ($\alpha \cdot \beta) \in P$ 
 
-- $\lambda \in P$ ($\lambda$ is empty string)
-- If $\alpha$, $\beta \in P$, then ($\alpha \cdot \beta) \in P$ 
-
-Every noneempty balanced parent string can be obtained via Rule 2 
+Every non-empty balanced parent string can be obtained via Rule 2 
 from a unique $\alpha,\beta$ pair.
 
 For Example: <span style="color:cyan">(()) () ()</span> obtained by :
@@ -36,7 +39,7 @@ For Example: <span style="color:cyan">(()) () ()</span> obtained by :
 
 ### Enumeration
 - $C_{n}:$ number of balanced parentheses strings with exactly $n$ pairs of parentheses 
-$C_{0}=1$ empty string.
+- $C_0=1$ empty string. ()
 
 - $C_{n+1}?:$ Every string with n+1 pairs of parentheses can be obtained in a unique 
 way via rule 2.
@@ -48,15 +51,17 @@ $C_{n+1} =\displaystyle \sum_{k=0}^{n} C_k \cdot C_{n-k}$
 
 where:
 - $n\geq 0$
-- C_0 = 1
-- $C_1 = {C_{0}}^2 = 1$
-- $C_2 = C_{0} \cdot C_1 + C_1 \cdot C_{0} = 2$
+- $C_0 = 1$ 
+- $C_1 = {C_{0}}^2 = 1$ ()
+- $C_2 = C_0 \cdot C_1 + C_1 \cdot C_{0} = 2 \cdot(C_0 \cdot C_1) = 2$ which means:  (()) or ()()
 - $C_3 = \dots = 5$
+
+The following catalan numbers are:
 
 $1,1,2,5,14,42,132, 429,1430, 4862, 16796, 58786, 208012, 742900, 2674440, 9694845,$ 
 $35357670, 129644790, 477638700, 1767263190, 6564120420, 24466267020, 91492563640,$ 
 $343059613650, 1289904147324, 4861946401452, 18367353072152, 69533550916004,$
-$263747951750360, 1002242216651368$
+$263747951750360, 1002242216651368 \dots$
 
 ### Newton's Method
 Find root of $f(x)=0$ through successive approximation e.g., $f(x)=x^2-a$
@@ -95,14 +100,22 @@ Example:
 
 $a=2$
 
-|  iteration   | value   |
-| ------------ | --------- |
-| $x_0$    | 1.000000000     |
-| $x_1$    | 1.500000000     |
-| $x_2$    | 1.416666665     |
-| $x_3$    | 1.414215686     |
-| $x_3$    | 1.414213562     |
 
+$x_{0}=1$
+
+$x_{1}=\frac{x_0+\frac{2}{x_0}}{2}=\frac{(1)+\frac{2}{(1)}}{2}=\frac{1+2}{2}=\frac{3}{2}=1.5$ 
+
+$x_{2}=\frac{x_1+\frac{2}{x_1}}{2}=\frac{(1.5)+\frac{2}{(\frac{3}{2})}}{2}=\frac{1+\frac{4}{3}}{2}=\frac{(\frac{7}{3})}{2}=\frac{7}{6}=1.416666665$ 
+
+|iteration | value       |
+| -------- | ----------- |
+| $x_0$    | 1.000000000 |
+| $x_1$    | 1.500000000 |
+| $x_2$    | 1.416666665 |
+| $x_3$    | 1.414215686 |
+| $x_3$    | 1.414213562 |
+
+> $\sqrt(2)= 1.$ $414$ $213$ $562$ $373$ $095$ $048$ $801$ $688$ $724$ $209$ $698$ $078$ $569$ $671$ $875$ 
 
 Quadratic convergence, # digits doubles. Of course, in order to use Newton's method,
 we need high-precision division. We'll start with multiplication and cover division in 
