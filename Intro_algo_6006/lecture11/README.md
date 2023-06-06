@@ -176,7 +176,7 @@ $z_2=x_1 \cdot y_1$
 
 <span style="color:rgb(243,186,56)">
 
-$z_1= (x_0 + x_1) \cdot (y_0 + y_1) - z_2 - z_0= x_0\cdot y_1 + x_1 \cdot y_0$
+$z_1= (x_0 + x_1) \cdot (y_0 + y_1) - z_2 - z_0$
 
 $z_1 = (x_0 \cdot y_0 + x_0 \cdot y_1 + x_1 \cdot y_0 + x_1 \cdot y_1) - z_2 - z_0$
 
@@ -228,17 +228,48 @@ This is better than $\Theta(n^{2})$. Python does this, and more (see Lecture 12)
 
 <img src="pic7.jpg" style="width:300px;display:block;margin-left:auto;margin-right:auto">
 
+<span style="color:rgb(66,69,163)">
+
+$CB=AC$
+
+</span>
+
 <span style="color:rgb(147,120,227)">
 
 $BD=1$
 
 </span>
 
+
 Whats is 
 <span style="color:rgb(243,186,56)">
 $AD$
 </span>
 ?
+
+<div style="display:flex; justify-content:center">
+  <span style="color:rgb(66,69,163)">
+
+  $AC=$
+
+  </span>
+
+  <span style="color:rgb(106,192,200)">
+
+  $CD$
+
+  </span>
+
+  $+$
+
+  <span style="color:rgb(243,186,56)">
+
+  $AD$
+
+  </span>
+
+
+</div>
 
 <div style="display:flex; justify-content:center">
   <span style="color:rgb(243,186,56)">
