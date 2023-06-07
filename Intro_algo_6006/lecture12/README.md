@@ -32,8 +32,21 @@ $$
 X_{n+1}&=\frac{X_n+\frac{a}{X_n}}{2} \\[12px]
        &=a\cdot \frac{X_n+\frac{a}{X_n}}{2} \\[12px]
        &=\frac{\sqrt{a}\cdot(1+ \epsilon_{n})+\frac{a}{\sqrt{a}\cdot(1+ \epsilon_{n})}}{2} \\[12px]
-       &=\sqrt{a}\cdot\frac{\left((1+ \epsilon_{n})+\frac{1}{(1+ \epsilon_{n})}\right)}{2} \\[12px]
-       &=\sqrt{a}\cdot\left(\frac{2+2\cdot\epsilon_{n}+ {\epsilon_{n}}^2}{2\cdot(1+\epsilon_{n})}\right) \\[12px]
+       &= \frac{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n}) \cdot \left(\sqrt{a}\cdot(1+ \epsilon_{n})+\frac{a}{\sqrt{a}\cdot(1+ \epsilon_{n})}\right)}{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n})} \\[12px]
+       &= \frac{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n}) \cdot \sqrt{a} \cdot (1 + \epsilon_{n}) + 2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n}) \cdot \frac{a}{\sqrt{a}\cdot(1+ \epsilon_{n})}}{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n})} \\[12px]
+       &= \frac{2 \cdot \sqrt{a} \cdot \sqrt{a} \cdot (1 + \epsilon_{n}) \cdot (1 + \epsilon_{n}) + 2 \cdot a}{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n})} \\[12px]
+       &= \frac{2 \cdot a \cdot (1 + \epsilon_{n})^2 + 2 \cdot a}{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n})} \\[12px]
+
+       &= \frac{2 \cdot a \cdot \left((1 + \epsilon_{n})^2 + 1\right)}{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n})} \\[12px]
+
+       &= \frac{2 \cdot a \cdot (1 + 2 \cdot \epsilon_{n} + \epsilon_{n}^2 + 1)}{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n})} \\[12px]
+
+&= \frac{2 \cdot a \cdot (2 + 2 \cdot \epsilon_{n} + \epsilon_{n}^2)}{2 \cdot \sqrt{a} \cdot (1 + \epsilon_{n})} \\[12px]
+
+&= \frac{a \cdot (1 + \epsilon_{n} + \frac{\epsilon_{n}^2}{2})}{\sqrt{a} \cdot (1 + \epsilon_{n})} \\[12px]
+
+&= \sqrt{a} \cdot \left(1 + \frac{{\epsilon_{n}}^2}{2 \cdot (1+\epsilon_{n})}\right) \\[12px]
+X{n+1}&= \sqrt{a} \cdot \left(1 + \frac{{\epsilon_{n}}^2}{2 \cdot (1+\epsilon_{n})}\right) \\[12px]
 \end{align*}
 $$
 
@@ -47,13 +60,16 @@ Quadratic convergence, as the number of correct digits doubles each step.
 
 ### Multiplication Algorithms:
 1. Naive Divide & Conquer method: $\Theta(d^2)$ time.
-2. Karatsuba method: $\Theta(d^{\log_2(3)})=\Theta(d^{1.584\dots})$ time.
+2. Karatsuba method: $\Theta(n^{\log_2(3)})=\Theta(n^{1.584\dots})$ time.
+$$
+T(n)=3\cdot T\left(\frac{n}{2}\right)+\Theta(n) 
+$$
 3. Toom-Cook generalizes Karatsuba (break into $k \geq 2$ parts)
 $$
-T(d)=5\cdot T\left(\frac{d}{3}\right)+\Theta(d) = \Theta(d^{\log_3(5)}) = \Theta(d^{1.465\dots})
+T(n)=5\cdot T\left(\frac{n}{3}\right)+\Theta(n) = \Theta(n^{\log_3(5)}) = \Theta(n^{1.465\dots})
 $$
-4. Schönhage–Strassen - almost linear! $\Theta(d \cdot log_2(d) \cdot log_2(log_2 (d)))$ using FFT.
-All of these are in <u>gmpy</u> package.
+4. Schönhage–Strassen - almost linear! $\Theta(d \cdot log_2(d) \cdot log_2(log_2 (d)))$ using FFT(Fast Fourier Transform).
+All of these are in [gmpy](https://pypi.org/project/gmpy/) package in Python.
 5. Furer (2007): $\Theta(n \cdot log_2(n) \cdot 2^{O(log^* n)})$ where $log^*$ is iterated logarithm. 
 The number of times $\log$ needs to be applied to get a number that is less than or equal to 1.
 
@@ -72,6 +88,8 @@ Newton's Method for computing $\frac{R}{b}$:
 
 <span>$f(x)=\frac{x}{b}$</span>
 
+<span>$f'(x)=\frac{-1}{x^2}$</span>
+
 <span>(zero at $x=\frac{R}{b}$)</span>
 
 </div>
@@ -79,15 +97,14 @@ Newton's Method for computing $\frac{R}{b}$:
 $$
 \begin{align*}
 X_{i+1}&= X_i - \frac{f(X_i)}{f'(X_i)} = X_i - \frac{(\frac{1}{X_i} - \frac{b}{R})}{-\frac{1}{{X_i}^2}}\\[12px]
-X_{i+1}&= X_i + {X_i}^2 \cdot \left(\frac{1}{X_i} - \frac{b}{R}\right) = 2X_i + \frac{b\cdot {X_i}^2}{R}
+X_{i+1}&= X_i + {X_i}^2 \cdot \left(\frac{1}{X_i} - \frac{b}{R}\right) = 2X_i + \frac{b\cdot {X_i}^2}{R}\\[12px]
+X_{i+1} &= 2X_i +\frac{b\cdot {X_i}^2}{R}
 \end{align*}
 $$
 
-$X_{i+1} = 2X_i +$ $\frac{b\cdot {X_i}^2}{R}$
-
 ##### Example
 
-Want $\frac{R}{b}=\frac{2^{16}}{5}=\frac{65536}{5}= 12107.2$
+Want $\frac{R}{b}=\frac{2^{16}}{5}=\frac{65536}{5}= 13107.2$
 
 Try initial guess $\frac{2^{16}}{4}=2^{14}$
 
@@ -122,10 +139,20 @@ $n-digit$ numbers, with $\alpha \geq 1$. Division requires multiplication of dif
 numbers at each iteration. Initially the numbers are small, and then they grow to d-digits.
 The number of operations in division are:
 
+
+$$
+c\cdot 1^\alpha + c\cdot 2^\alpha + c\cdot 4^\alpha + \cdots + c\cdot\left(\frac{d}{4}\right)^\alpha
++ c \cdot \left(\frac{d}{2}\right)^\alpha + c \cdot {d}^\alpha
+$$
+
+Constants times $d^{\alpha}$:
+
 $$
 c\cdot 1^\alpha + c\cdot 2^\alpha + c\cdot 4^\alpha + \cdots + c\cdot\left(\frac{d}{4}\right)^\alpha
 + c \cdot \left(\frac{d}{2}\right)^\alpha + c \cdot {d}^\alpha < 2c \cdot {d}^\alpha
 $$
+
+Complexity of division $\cong$ Complexity of multiplication
 
 ### Complexity of Computing Square Roots
 We apply a first level of Newton's method to solve $f(x)=x^2-a$. Each iteration of this first level requires
