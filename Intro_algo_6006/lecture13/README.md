@@ -122,3 +122,44 @@ BFS(V,Adj,s):
 ##### Example
 ![Breadth-First Search Frontier](graph7.jpg)
 
+#### Analysis:
+- vertex $V$ enters next ($\&$ then frontier) only once (because level$[v]$ then set)
+  base case: $v=s$
+
+- $\implies$ $Adj[v]$ looped through only once
+
+<span style="">
+
+$$
+\displaystyle time=\sum_{v \in V} |Adj[V]|=
+\begin{cases}
+|E| & \text{for directed graphs} \\
+2 |E| & \text{for undirected graphs} \\
+\end{cases}
+$$
+
+</span>
+
+- $\implies$ $O(E)$ time.
+
+- $O(V+E)$ <span style="color:rgb(243,186,56)">("LINEAR TIME")</span> to also list vertices 
+unreachable from $v$ (those still not assigned level)
+
+### Shortest Paths:
+<span style="color:green">cf. Lectures 15-18</span>
+
+<span style="">
+
+- for every vertex $v$, fewest edges to get from $s$ to $v$ is
+$$
+\begin{cases}
+level[v] & \text{if $v$ assigned level} \\
+\infty & \text{else (no path)} \\
+\end{cases}
+$$
+</span>
+
+- parent pointers form <u>shortest-path tree</u> = union of such a shortest path
+for each $v$ $\implies$ to find shortest path take $v$, $parent[v]$, $parent[parent[v]]$,etc.,
+  until $s$ (or None).
+
