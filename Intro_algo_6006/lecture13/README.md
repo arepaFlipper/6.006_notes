@@ -96,3 +96,29 @@ Explore graph level by level from $s$:
 - level $i= vertices$ reachable by path of $i$ edges but not fewer. 
 
 ![Example to illustrate Breadth first tree](graph6.jpg)
+
+- build level $i>0$ from level $i-1$ by trying all outgoing edges, but ignoring 
+vertices from previous levels.
+
+### Breadth-First-Search Algorithm
+```
+BFS(V,Adj,s):
+  level = { s: 0 }
+  parent = { s: None }
+  i = 1
+  frontier = [s]
+  while frontier:
+    next = []
+    for u in frontier:
+      for v in Adj[u]:
+        if v not in level:
+          level[v] = i
+          parent[v] = u
+          next.append(v)
+    frontier = next
+    i += 1
+```
+
+##### Example
+![Breadth-First Search Frontier](graph7.jpg)
+
