@@ -11,7 +11,6 @@
 $Adj$ of $|V|$ linked lists.
   - for each vertex $u \in V$, $Adj[u]$ stores $u$'s neighbors,
   i.e., 
-
   $\{v \in V | (u,v)\in E\}$ (<span style="color:orange">just outgoing
   edges if directed</span>)
 

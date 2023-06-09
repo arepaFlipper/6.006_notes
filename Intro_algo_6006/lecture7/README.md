@@ -133,4 +133,4 @@ d iterations
 $= O((n+b) \cdot \log_b k)$
 
   - minimized when $b=\Theta(n)$
-    - $= O(n \cdot \log_n k)$ if $k=n^c$ then $\Theta(n\cdot c)$
+    - $= O(n \cdot \log_n k)$ if $k=n^c$ then $\Theta(n\cdotc)$
