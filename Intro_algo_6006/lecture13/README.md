@@ -12,8 +12,7 @@ Graph $G=(V,E)$
   - <span style="color:rgb(121,202,66)">ordered pair $\implies$ <u>directed</u> edge of graph.</span>
   - <span style="color:rgb(255,154,223)">unordered pair $\implies$ <u>undirected</u> edge of graph.</span>
 
-  ![Example to illustrate graph terminology](graph0.jpg)
-
+  ![Example to illustrate graph terminology](graph11.jpg)
 
 ## Graph Search
 "Explore a graph", e.g.:
@@ -25,7 +24,7 @@ reachable from $s$</span>
 <span style="color:rgb(121,202,66)">There are many.</span>
 - Web crawling (<span style="color:rgb(121,202,66)">how Google finds pages</span>)
 - Social networking (<span style="color:rgb(121,202,66)">Facebook friend finder</span>)
-- Network bradcast routing.
+- Network broadcast routing.
 - Garbage collection.
 - Model checking (<span style="color:rgb(121,202,66)">finite state machine</span>)
 - checking mathematical conjectures
@@ -39,31 +38,53 @@ Consider a 2 x 2 x 2 Rubik's cube:
 
 Configuration Graph:
 - vertex for each possible state.
-- Edge for each basic move (e.g., 90 degree turn) from one state to another.
-- undirected: moves are reversible
+- Edge for each basic move (e.g., 90 degree turn) from one state to another:
+<img src="graph14.jpg" alt="Rubik's cube"  height="40" style="display: block; margin: auto"/>
+- undirected: moves are reversible:
+
+<img src="graph12.jpg" alt="Rubik's cube"  height="40" style="display: block; margin: auto"/>
 
 Diameter ("God's Number")
 
-<span style="color:cyan">11 for $2$ x $2$ x $2$, 20 for $3$ x $3$ x $3$, $\Theta\left(\frac{n^2}{log_2(n)}\right)$
-for $n$ x $n$ x $n$</span> <span style="color:rgb(255,154,223)">[Demaine, Demaine, Eisenstat, Lubiw winslow 2011]</span>
+<span style="color:cyan">
+
+- 11 for $2$ x $2$ x $2$, 
+- 20 for $3$ x $3$ x $3$, 
+- $\Theta\left(\frac{n^2}{log_2(n)}\right)$ for $n$ x $n$ x $n$</span> <span style="color:rgb(255,154,223)">[Demaine, Demaine, Eisenstat, Lubiw winslow 2011]
+
+</span>
 
 ![Example to illustrate Breadth first tree](graph1.jpg)
 
-number of vertices $v= 8! \cdot 3^8 = 264, 439, 520$ where 
+number of vertices $v= 8! \cdot 3^8 = 264'439.520$ where 
 <span style="color:yellow">$8!$ comes from having 8 cubelets in arbitrary positions and $3^8$ comes as each 
 cubelet has 3 possible twists</span>.
 
 <img src="graph3.jpg" alt="Rubik's cube" width="150" height="100" />
 
-
 <span style="color:pink">This can be divided by 24 if we remove cube symmetries and further divided 
 by 3 to account for actually reachable configurations (there are 3 connected components)</span>.
 
-### Graph Representations: (<span style="color:rgb(255,154,223)">data structures</span>)
+### Graph Representations: (<span style="color:rgb(255,154,223)"> data structures </span>)
 
 #### Adjacency lists:
 Array $Adj$ of $|V|$ linked lists
-- for each vertex $u \in V,Adj[u]$ stores $u$'s neighbors, i.e., $\{v\in V | (u,v) \in E\}$.
+- for each vertex $u \in V,Adj[u]$ stores $u$'s neighbors, i.e.,
+
+$
+\{v\in V | (u,v) \in E\}
+$.
+
+$Adj[b]=\{a,c\}$
+
+$Adj[a]=\{c\}$
+
+$Adj[c]=\{b\}$
+
+For pretty much every exploration problem, this is the representation you want,
+because you're at some vertex, and you want to know, where can I go next.
+And Adj of that vertex ($Adj[u]$) tells you exactly where you can go next.
+
 <span style="color:rgb(243,186,56)">$(u,v)$ are just outgoing edges if directed.</span>
 ![Adjacency List Representation: Space(\Theta(V+E))](graph4.jpg)
 
@@ -106,9 +127,9 @@ BFS(V,Adj,s):
   level = { s: 0 }
   parent = { s: None }
   i = 1
-  frontier = [s]
+  frontier = [s]     # what we can reach in level `i-1` moves.
   while frontier:
-    next = []
+    next = []        # what we can reach in level `i` moves.
     for u in frontier:
       for v in Adj[u]:
         if v not in level:
@@ -120,7 +141,12 @@ BFS(V,Adj,s):
 ```
 
 ##### Example
-![Breadth-First Search Frontier](graph7.jpg)
+For this example we illustrate an <u>undirected</u> graph, but this algorithm works
+just as well on directed and undirected graphs.
+![Undirected Graph](graph7.jpg)
+
+We're given some start vertex $s$, and we are given the graph by being given the 
+adjacency lists.
 
 #### Analysis:
 - vertex $V$ enters next ($\&$ then frontier) only once (because level$[v]$ then set)
@@ -138,6 +164,7 @@ $$
 \end{cases}
 $$
 
+    This is the handshaking lemma, that basically says that we visit every node twice.
 </span>
 
 - $\implies$ $O(E)$ time.
@@ -157,9 +184,12 @@ level[v] & \text{if $v$ assigned level} \\
 \infty & \text{else (no path)} \\
 \end{cases}
 $$
+
 </span>
 
-- parent pointers form <u>shortest-path tree</u> = union of such a shortest path
+
+- <span style="background:rgb(0,158,241)"> **Parent:** </span> pointers form <u>shortest-path tree</u> = union of such a shortest path
 for each $v$ $\implies$ to find shortest path take $v$, $parent[v]$, $parent[parent[v]]$,etc.,
   until $s$ (or None).
 
+![Parenting example](graph15.jpg)
