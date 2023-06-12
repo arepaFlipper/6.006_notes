@@ -12,8 +12,12 @@ Shortest way to drive from A to B Google maps "get directions"
 
   Formulation: Problem on a weighted graph $G(V,E)$ $W:E\implies \mathbb{R}$
 
-  Two algorithms: Dijkstra $O(( V \cdot log_2 V ) + E )$, assumes non-negative
-  edge weights Bellman Ford $O(V\cdot E)$ is a general algorithm.
+  Two algorithms: 
+  - __Dijkstra__ $O(( V \cdot log_2 V ) + E )$, where
+  the asymptotic relationship between $V$ and $E$ is defined by:
+  $E= O(V^2)$, assumes non-negative
+
+  - Edge weights __Bellman Ford__ $O(V\cdot E)$ is a general algorithm.
 
 ## Application
 - Find shortest path from CalTech to MIT
@@ -26,14 +30,20 @@ Shortest way to drive from A to B Google maps "get directions"
 
   $$
   \text{path }p=<v_0,v_1,\dots,v_k>\\
-  (v_i, v_{i+1}) \in E for 0 \geq i \leq k \\
+  (v_i, v_{i+1}) \in E \; for \; 0 \geq i \leq k \\
   w(p) = \displaystyle \sum_{i=0}^{k-1}  w(v_i, v_{i+1})
   $$
+  find p with minimum weight.
+  ![Shortest Path](graph5.jpg)
+
+  <span style="color:yellow">Notice:</span> that time complexity for both 
+  algorithms $O(V\cdot E))$ and $O(( V \cdot log_2 V ) + E)$ are not 
+  functions of weight.
 
 ## Weighted Graphs:
 #### Notation:
-$u \xrightarrow[]{\text{p}} v$ means $p$ is a path from $v_0$ to $v_k$.
-where v_0 is a path from $v_0$ to $v_0$  of weight $0$.
+$u \xrightarrow[]{\text{p}} v_k$ means $p$ is a path from $v_0$ to $v_k$.
+where $v_0$ is a path from $v_0$ to $v_0$  of weight $0$.
 
 #### Definition:
 Shortest path weight from $u$ to $v$ as:
@@ -48,6 +58,28 @@ $$
 \end{cases}
 $$
 
+>i.e. So if you're only talking about roads going from here to Tokio, should have length
+$\infty$. A little matter of the Pacific Ocean in between.
+
+![Shortest Path Example: Bold Edges give predecessor $\prod$ relationships](graph7.jpg)
+
+Filling nodes with numbers that are the current weight. $d(u)$
+
+$d(S,S)=0$ \
+$d(S,A)=1$
+
+![Shortest Path Example: Bold Edges give predecessor $\prod$ relationships](graph8.jpg)
+
+Is the weight shortest path from $S$ to $C$ 6 ?
+
+$d(S,C)=6?$
+
+![Shortest Path Example: Bold Edges give predecessor $\prod$ relationships](graph9.jpg)
+
+$d(S,C)\neq6$
+
+$d(S,C)=5$
+
 #### Single Source Shortest Paths:
 Given $G=(V,E)$, $w$ and $a$ source vertex $S$, find $\delta(S,V)$ [and the best path] from $S$
 to each $v \in V$.
@@ -55,7 +87,7 @@ to each $v \in V$.
 Data structures:
 
 $$
-d[v]: \text{value inside circle}\\
+d[v]: \text{value inside circle (current weight)}\\
 d[v] = \begin{cases}
 0 & \text{if } v = S\\
 \infty & \text{otherwise }
@@ -73,9 +105,14 @@ $$
 ![Shortest Path Example: Bold Edges give predecessor $\prod$ relationships](graph0.jpg)
 
 #### Negative-Weighted Edges:
+##### motivations:
+- Decision making, when you have a negative impact on your budget by doing x task to 
+accomplish a project faster.
+- Reverse tolls.
+- social networks.
 - Natural in some applications (e.g., logarithms used for weights)
 - Some algorithms disallow negative weight edges (e.g., Dijkstra)
-- If you have negative weight edges, you might alse have negative weight
+- If you have negative weight edges, you might also have negative weight
 cycles
 
   $\implies$ may make certain shortest paths undefined!
@@ -84,25 +121,42 @@ cycles
 ##### Example:
 
 <img src="graph1.jpg" style="width:auto;height:150px; display: block; margin: auto" alt="Negative-Weight Edges">
+<span style="color:yellow">Notice:</span> There is a negative weight cycle between 
+
+$B \rightarrow D \rightarrow C$ nodes
+
+<img src="graph13.jpg" style="width:auto;height:150px; display: block; margin: auto" alt="Negative-Weight Edges">
 
 $B \rightarrow D \rightarrow C \rightarrow B$ (origin) has weight $-6+2+3=-1 < 0!$
+
+
 
 Shortest path $S \rightarrow C$ (or B,D,E) is undefined. Can go around 
 $B\rightarrow D\rightarrow C$ as many times as you like.
 
 If negative weight edges are present, s.p. algorithm should find negative weight cycles (e.g., Bellman Ford)
 
-###### General structure of S.P. Algorithms (no negative cycles)
+##### General structure of S.P. Algorithms (no negative cycles)
 | Column2   | Column3   |
 |-------------- | -------------- |
-| Initialize    | $for v \in V: \begin{cases} d[v] \leftarrow \infty\\ \prod[v] \leftarrow NIL \end{cases}\\  d[S] \leftarrow 0\\$     |
-| Main    | repeat <br> select edge $(u,v)$  [somehow]    |
-| "Relax" edge $(u,v)$    | $\Bigg[{\text{if } d[v] \geq + w(u,v):\\ d[v] \leftarrow d[u] + w(u,v) \; \pi[v] \leftarrow u}$<br> until all edges have $d[v] \leq d[u] + w(u,v)$ |
+| Initialize    | $for \; v \in V: \begin{cases} d[v] \leftarrow \infty\\ \prod[v] \leftarrow NIL \end{cases}\\  d[S] \leftarrow 0\\$     |
+| Main    | repeat select edge $(u,v)$  [somehow]    |
+| "Relax" edge $(u,v)$ |if $d[v]>d[u]+w(u,v)$<br> $d[v] \geq + w(u,v):\\ d[v] \leftarrow d[u] + w(u,v) \;\\ \pi[v] \leftarrow u$<br> until all edges have $d[v] \leq d[u] + w(u,v)$ |
 
 
 ###### Complexity:
 Termination? (needs to be shown even without negative cycles)
 Could be exponential time with poor choice of edges.
+
+![Running Generic Algorithm](graph15.jpg)
+![Running Generic Algorithm](graph16.jpg)
+![Running Generic Algorithm](graph18.jpg)
+![Running Generic Algorithm](graph21.jpg)
+![Running Generic Algorithm](graph22.jpg)
+![Running Generic Algorithm](graph23.jpg)
+![Running Generic Algorithm](graph24.jpg)
+![Running Generic Algorithm](graph27.jpg)
+![Running Generic Algorithm](graph28.jpg)
 
 ![Running Generic Algorithm](graph2.jpg)
 
@@ -124,6 +178,7 @@ This will take $O(2^{\frac{n}{2}})$ time.
 #### Optimal Substructure:
 
 <u style="color:cyan; font-weight:bold">Theorem</u>: Sub-paths of shortest paths are shortest paths
+![Optimal Substructure](graph30.jpg)
 
   Let $p=<v_0,v_1,\dots,v_k>$ be the shortest path.
 
