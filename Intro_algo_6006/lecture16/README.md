@@ -49,3 +49,72 @@ Can't have negative cycles because there are no cycles!
   2. One pass over vertices in topologically sorted order relaxing each edge 
   that leaves each vertex:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\theta(V+E)$ time
+
+###### Example:
+![Shortest Path using Topological Sort](graph0.jpg)
+
+&nbsp;&nbsp;&nbsp;Vertices sorted left to right in topological order.
+Process $r$: stays $\infty$. All vertices to the left of $s$ will be $\infty$ by definition.
+Process $s: t: \infty \rightarrow 2$ $x:\infty \rightarrow 6$
+
+![process ](graph1.jpg)
+
+![process ](graph2.jpg)
+
+DIJKSTRA Demo:
+
+<img src="graph4.jpg" width="auto" height="200" style="display: block; margin-left: auto; margin-right: auto;">
+
+### Dijkstra's Algorithm
+For each edge $(u,v) \in E$, assume $w(u,v) \geq 0$, maintain a set $S$ of vertices whose
+final shortest path weights have been detemined. Repeatedly select $u \in V - S$ with 
+<u>minimum</u> shortest path estimate, add $u$ to $S$, relax all edges out of $u$.
+
+#### Pseudo-code
+Dijkstra $(G,W,s)$ // uses priority queue Q<br> 
+&nbsp;&nbsp;&nbsp;Initialize$(G,s)$<br>
+&nbsp;&nbsp;&nbsp;$S\leftarrow\phi$<br>
+&nbsp;&nbsp;&nbsp;$Q\leftarrow V[G]$ //Insert into Q<br>
+&nbsp;&nbsp;&nbsp;while $Q\neq \phi$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do $u \leftarrow$ EXTRACT_MIN$(Q)$ //deletes $u$ from $Q$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$S= S \cup {u}$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for each vertex $v \in Adj[u]$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do RELAX $(u,v,w) 
+\leftarrow$ this is an implicit DECREASE_KEY operation
+
+![process ](graph6.jpg)
+
+- Strategy: Dijkstra is a greedy algorithm: choose closest vertex in $V - S$ to add to 
+set $S$.
+
+- Correctness: We know relaxation is safe. The key observation is that each time a
+vertex $u$ is added to set $S$, we have $d[u] = \delta(s,u)$.
+
+### Dijkstra Complexity
+$$
+\Theta(v) \text{ inserts into priority queue.} \\
+\Theta(v) \text{ EXTRACT\_MIN operations} \\
+\Theta(E) \text{DECREASE\_KEY operations}\\
+$$
+
+Array impl:
+$$
+\Theta(v) \text{ time for extra min. } \\
+\Theta(1) \text{ for decrease key } \\
+Total: \Theta(V.V + E.1) = \Theta(V^2+E)=\Theta(V^2)
+$$
+
+Binary min-heap:
+$$
+\Theta(\log_{2}V) \text{ for extract min.}\\
+\Theta(\log_{2}V) \text{ for decrease key}\\
+Total: \Theta(V \cdot \log_2 V + E \cdot \log_2 E)\\
+$$
+
+Fibonacci heap (not covered in 6.006):
+$$
+\Theta(\log_{2}V) \text{ for extract min.}\\
+\Theta(1) for decrease key\\
+amortized cost\\
+Total: \Theta\left(V \cdot \log_2 (V + E)\right)\\
+$$
