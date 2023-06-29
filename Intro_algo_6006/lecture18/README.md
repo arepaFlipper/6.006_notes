@@ -90,4 +90,23 @@ $\;\;\;\;\;\;\;\;\;\;\;\;= w(u,v) - \delta(u,l)+\delta(v,l)\geq 0$ by the $\Delt
 
   $\lambda_t(u)= \text{max}_{{}_{(l\; \in\; L)}} (\lambda_t^{(l)}(u))$
 
+Original:
+<img src="graph2.jpg" style="display:block;margin:0 auto" width="300" alt="Bi-directional Search" />
+Forward:
+<img src="graph3.jpg" style="display:block;margin:0 auto" width="300" alt="Bi-directional Search" />
+Backward:
+<img src="graph4.jpg" style="display:block;margin:0 auto" width="300" alt="Bi-directional Search" />
+Forward:
+<img src="graph5.jpg" style="display:block;margin:0 auto" width="300" alt="Bi-directional Search" />
+Backward:
+<img src="graph6.jpg" style="display:block;margin:0 auto" width="300" alt="Bi-directional Search" />
+Forward:
+<img src="graph7.jpg" style="display:block;margin:0 auto" width="300" alt="Bi-directional Search" />
+Backward:
+<img src="graph8.jpg" style="display:block;margin:0 auto" width="300" alt="Bi-directional Search" />
 
+Targeted Search:
+<img src="graph9.jpg" style="display:block;margin:0 auto" width="300" alt="Targeted Search" />
+
+Modifying Edge Weights:
+<img src="graph10.jpg" style="display:block;margin:0 auto" width="300" alt="Modifying Edge Weights" />
