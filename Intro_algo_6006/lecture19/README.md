@@ -9,8 +9,8 @@
 ## Dynamic Programming (DP)
 <span style="color:rgb(90,255,100)">Big idea, hard, yet simple</span>
 
-- Powerful algorithmic design technique.
-- Large class of seemingly exponential problems have a polynomial solution
+- General Powerful algorithmic design technique.
+- Exhaustive (Large class of seemingly exponential) problems have a polynomial solution
 ("only") via DP.
 - Particularly for optimization problems (min/max) 
 <span style="color:rgb(90,255,100)">(e.g. shortest paths)</span>.
@@ -42,39 +42,56 @@ $$
 
 ```
 fib(n):
-  if n < 2:
+  if n < 2: # check for base case
     return n
   else:
     return fib(n-1) + fib(n-2)
 ```
-<span style="font-size:0.75em">
+<span style="font-size:0.65em">
+
+$\implies T(n)=T(n-1)+T(n-2) + \Theta(1)$
+
+$\implies T(n) \geq F_n$
+
+$\implies T(n) \approx \varphi^n$
+
+$\implies T(n)\geq 2T\cdot(n-2)$
+
+$\implies 2T\cdot(n-2) = \Theta(2^{n/2})$
 
 $$
-\implies T(n)=T(n-1)+T(n-2) + O(1) \geq F_n \approx \varphi^n
-\geq 2T(n-2) +O(1) \leq 2^(n/2)
+\implies T(n)=T(n-1)+T(n-2) + \Theta(1) \geq F_n \approx \varphi^n
+\geq 2T(n-2) +O(1) \leq 2^{(n/2)}
 $$
 
 </span>
 
   <u style="display:flex;color:red; justify-content: center">Exponential --- BAD!</u>
 
-![Naive Fibonacci Algorithm](./graph0.jpg)
 
 #### Memoized DP (Dynamic Programming) Algorithm
 <span style="color:yellow">Remember, remember</span>
 
+Whenever we compute a Fibonacci number, we put it in a dictionary. And then
+when we need to comput a n-th Fibonacci number, we check, is it already in
+the dictionary? Did we already solve this problem?, if so, return that answer.
+
+![Naive Fibonacci Algorithm](./graph0.jpg)
 ```
 memo = {}
 fib(n):
   if n in memo:
     return memo[n]
   elif n <= 2:
-    f=1
+    f = 1
   else:
     f = fib(n-1) + fib(n-2)
   memo[n] = f
   return f
 ```
+
+![Memoized Fibonacci Algorithm](./graph5.jpg)
+
 
 $\implies$ fib$(k)$ only recurses first time called, $\forall k$
 
@@ -94,12 +111,12 @@ that help solve problem
   - Fibonacci: # of subproblems is n, and (time/subproblem) is $\Theta(1)=\Theta(n)$
   (<span style="color:green">ignore recursion!</span>).
 
-#### Bottom-up DP (Dynamic Programming) Algorithm
+## Bottom-up DP (Dynamic Programming) Algorithm
 ```
-DP(): 
+Bottom_up_DP(): 
   ### O(n) time
   fib = {}
-  for k in [1,2,...,n]:
+  for k in range(1, n+1):
     ### O(1) time
     if k <= 2:
       f=1
@@ -110,7 +127,7 @@ DP():
 ```
 
 - exactly the same <u>computation</u> as memoized DP (<span style="color:green">recursion "uncontrolled"</span>).
-- in general: topological sort of subproblem dependency DAG.
+- in general: topological sort of subproblem dependency DAG (Directed Acyclic Graph).
 <img src="./graph1.jpg" style="">
 - practically faster: no recursion.
 - analysis more obvious.
@@ -123,7 +140,7 @@ DP():
 
 </span>
 
-#### Shortest Paths
+#### Shortest Paths $\delta(s,v) \forall_{{}_V}$
 - Recursive formulation:
 
   $\delta(s,v)= \text{min}\{w(u,v) + \delta(s,u) | (u,v) \in E\}$
@@ -135,7 +152,7 @@ DP():
 <img src="./graph2.jpg" style="display: block; margin-left: auto; margin-right: auto" width="200" alt="Shortest Paths"/>
   Shortest Paths
 
-- works for directed acyclic graphs in $O(V+E)$
+- works for DAG (directed acyclic graphs) in $O(V+E)$
 
   <span style="color:green">effectively DFS/topological sort + Bellman-Ford round rolled 
   into single recursion.</span> 
@@ -187,3 +204,5 @@ dominates time/subproblem.
 - converting shortest paths in graph $\rightarrow$ shortest paths in DAG
 
 <span style="color:red; font-size:0.75em">*</span> DP $\approx$ shortest paths in some DAG.
+
+Total time$=\Theta(V\cdot E)$
