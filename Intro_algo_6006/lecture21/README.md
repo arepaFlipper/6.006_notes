@@ -1,5 +1,5 @@
 # DP III: Parenthesization, Edit Distance, Knapsack
-- Subproblems for strings
+- Sub-problems for strings
 - Parenthesization
 - Edit distance (& longest common subsequence)
 - Knapsack
@@ -21,15 +21,20 @@
 (text justification, Blackjack) are on sequences (words, cards)
 
 <span style="color:rgb(255,0,0)">*</span> useful problems for strings/sequences $x$:
-![](graph0.jpg)
+![strings/sequences](graph3.jpg)
+
 ## Parenthesization:
-Optimal evaluation of associative expression $A[0]\cdot A[1] \cdots A[n-1]$ --- e.g., multiplying rectangular matrices:
+Optimal evaluation of associative expression $(A[0]\cdot A[1]) \cdot \dots (\dots)\cdot A[n-1]$ --- e.g., multiplying rectangular matrices:
 ![graph1.jpg](graph1.jpg)
+![matrix](graph5.jpg)
+![scalar](graph6.jpg)
 
 2. <u>guessing</u> : outermost multiplication
-<span style="color:rgb(0,158,241)">$(\underbrace{\cdots}_{k-1})(\underbrace{\cdots}_{k})$</span>
+<span style="color:rgb(0,158,241)">$(\underbrace{A_{{}_0}\cdots A_{{}_{k-1}}}_{k-1})\cdot(\underbrace{A_{{}_{k}}\cdots A_{{}_{n-1}} }_{k})$</span>
 
-    $\implies$ # choices = $O(n)$
+<span style="color:rgb(0,158,241)">$(\underbrace{A_{{}_i}\cdots A_{{}_{k-1}}}_{k-1})\cdot(\underbrace{A_{{}_{k}}\cdots A_{{}_{j-1}} }_{k})$</span>
+
+  $\implies$ # choices  $O(j-i+1)=O(n)$
 
 --
 
@@ -43,27 +48,30 @@ Optimal evaluation of associative expression $A[0]\cdot A[1] \cdots A[n-1]$ --- 
 3. <u>recurrence</u>: 
     - DP$[i,j]$ = min(
       <span style="text-align:center;font-size:10px">
-      $DP[i,k]+DP[k,j]+ \text{ cost of multiplying } (A[i] \cdot A[k] \cdots A[k-1]) by 
+      $DP[i,k]+DP[k,j]+ \text{ cost of multiplying } (A[i] \cdot A[k] \cdots A[k-1])
+      \text{ by } 
       (A[k] \cdots A[j-1]) \text{ for } k \text { in range}(i+1,j)$
       </span >
       )
+      ![graph2.jpg](graph11.jpg)
     - DP$[i,i+1]=0$ 
 
       $\implies$ cost per subproblem $=O(j-i)=O(n)$
 
-4. <u>topological order</u>: increasing substring size. Total time = $O(n^3)$
+4. <u>topological order</u>:  Total time = $O(n^3)$ by <span style="color:cyan">increasing sub-string size</span>!
 5. <u>Original problem</u>: $DP[0,n]$ <br/>
 <span style="color:pink">(& use parent pointers to recover parents.)<br/>
 NOTE:</span> Above DP is <u>not</u> shortest paths in the subproblem DAG!<br/>
 Two dependencies $\implies$ not paths!
 
+![board explanation](graph9.jpg)
 ### Edit Distance
 <span style="color:pink">Used for DNA comparison, diff, CVS/SVN/..., spellchecking (typos),
 plagiarism detection, etc.</span>
 
 Given two strings $x$ and $y$, what is the cheapest possible sequence of character <u>edits</u>
 (<span style="color:rgb(0,158,241)">insert c, delete c, replace c $\leftarrow c'$</span>)
-to transform $x$ into $y$?
+to transform $x$ into $y$?:
 
 - <u>cost</u> of edit depends only on characters c, c'
 - <span style="color:pink"> for example in DNA, $C\rightarrow G$ common mutation $\implies$ low cost
@@ -72,7 +80,7 @@ to transform $x$ into $y$?
 <u>subsequence</u>. <span style="color:rgb(0,158,241)">Note that a subsequence is sequential but not necessarily
 contiguous.</span>
 - for example 
-<span style="color:cyan">H</span>
+&nbsp;<span style="color:cyan">H</span>
 I
 <span style="color:cyan">E</span>
 R O G
@@ -80,7 +88,7 @@ R O G
 Y P H O
 <span style="color:cyan">L O</span>
 G Y
-$vs.$
+&nbsp;&nbsp;&nbsp;&nbsp;$vs.$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 M I C
 <span style="color:cyan">H</span>
 A
@@ -88,17 +96,22 @@ A
 A N G E 
 <span style="color:cyan">L O</span>
 
-  $\implies$ <span style="color:cyan">HELLO</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The longest common subsequence:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\implies$ <span style="color:cyan">HELLO</span>
 
 #### Edit Distance DP (Dynamic Programming)
 
 (1) <u>subproblems</u>: $c(i,j):$ edit-distance$(x[i:],y[j:])$ for $0 \leq i \leq |x|, 0\leq j < |y|$<br/>
-&nbsp;&nbsp;&nbsp; $\implies \Theta(|x|\cdot|y|)$ subproblems.
+&nbsp;&nbsp;&nbsp; $\implies$ <span style="color:cyan">$\Theta(|x|\cdot|y|) \approx \Theta(n^2)$ subproblems.</span>
 
 (2) <u>guess</u>: whether, to turn $x$ into $y$,(<span style="color:rgb(0,158,241)">3 choices</span>):
-- $x[i]$ deleted
-- $y[j]$ inserted
-- $x[i]$ replaced by $y[j]$
+
+<img src="graph10.jpg" style="height:200px; display: block; margin-left: auto; margin-right: auto">
+
+- $x[i]$ replacement by $y[j]$
+- $x[i]$ deletion
+- $y[j]$ insertion
 
 (3) <u>recurrence</u>: $c(i,j)=$ maximum of:
   - cost$(\text{delete } x[i])+ c(i+1,j)$ if $i < |x|$
@@ -111,6 +124,11 @@ A N G E
 
 (4) <u>topological order</u>: DAG (Directed Acyclic Graph) in 2D table:
 
+```
+for i =|x|, ... 0:
+  for j =|y|, ... 0:
+    ...
+```
 <img src="graph2.jpg" style="display: block; margin-left: auto; margin-right: auto" width="50%" />
 
   - bottom-up OR right to left
@@ -120,8 +138,11 @@ A N G E
   - total time $= \Theta(|x|\cdot|y|)$
 
 (5) <u>Original problem</u>: $c(0,0)$ <br/>
+$\Theta(1)/sub-problems$
 
-## Knapsack
+time= $\Theta(|x|\cdot|y|)$
+
+## Knapsack (😵)
 Knapsack of size $S$ you want to pack
 - item $i$ has integer <u>size</u> $s_i$ & real <u>value</u> $v_i$
 - <u>goal</u>: choose subset of items of maximum total value subject to total size $\leq S$
