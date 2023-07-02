@@ -20,7 +20,8 @@ usually via guessing parts of solution.
 $\underbrace{(time/subproblem)}_{\text{treating recursive calls as }O(1)}$
 
 - usually mainly guessing
-- essentially an amortization.
+- essentially an <span style="color:cyan">amortization</span>: We're just changing around when we count the cost 
+of each sub-problem, and then:
 - count each subproblem only once; after first time, costs $O(1)$ via memoization.
 
 <span style="color:red">*</span> $DP \approx$ shortest paths in some DAG
@@ -32,21 +33,21 @@ $\underbrace{(time/subproblem)}_{\text{treating recursive calls as }O(1)}$
 |-------------- | -------------- | -------------- |
 | 1. | define subproblems     | count # subproblems |
 | 2. | guess (part of solution) | count # choices |
-| 3. | relate subproblem solutions | compute time/subproblem | 
+| 3. | recurrence: relate subproblem solutions | compute time/subproblem | 
 | 4. | recursive + memoize <br/><br/> OR build DP table bottom-up check subproblems acyclic/topological order| time = (time/subproblem) $\cdot$ (# subproblems)  | 
-| 5. | solve original problem: = a subproblem OR by combining subproblems solutions | $\implies$ extra time|
+| 5. | solve original problem: <br/>= a subproblem OR by combining subproblems solutions | $\implies$ extra time|
 
 | Example  | Fibonacci   | Shortest Paths   |
 |-------------- | -------------- | -------------- |
-| <u>subprops | $F_k$ for $1\leq k\leq n$ | $\delta_{k}(s,v)$ for $v \in V, 0 \leq k \leq \|V\|=$ min $s \rightarrow v$ path using $\leq k$ edges |
+| 1. <u>subprops | $F_k$ for $1\leq k\leq n$ | $\delta_{k}(s,v)$ for $v \in V, 0 \leq k \leq \|V\|=$ min $s \rightarrow v$ path using $\leq k$ edges |
 |<span style="color:rgb(255,179,82)">#subprobs</span> |<span style="color:rgb(255,179,82)"> $n$|<span style="color:rgb(255,179,82)"> $V^2$ |
-| <u>guess: |nothing| edge into $v$ (if any)|
+| 2. <u>guess: |nothing| edge into $v$ (if any)|
 |<span style="color:rgb(255,179,82)"># choices|<span style="color:rgb(255,179,82)"> $1$|<span style="color:rgb(255,179,82)"> indegree$(v)+1$ |
-| <u>recurrence: |$F_{{}_k}= F_{{}_{k-1}} + F_{{}_{k-2}}$|$\delta_{{}_k}(s,v)=$min $\{\delta_{{}_{k-1}}(s,v), \delta_{{}_{k-2}}(s,v) \| (u,v) \in E\}$|
+| 3. <u>recurrence: |$F_{{}_k}= F_{{}_{k-1}} + F_{{}_{k-2}}$|$\delta_{{}_k}(s,v)=$min $\{\delta_{{}_{k-1}}(s,v), \delta_{{}_{k-2}}(s,v) \| (u,v) \in E\}$|
 |<span style="color:rgb(255,179,82)">(time/subproblem)|<span style="color:rgb(255,179,82)"> $\Theta(1)$|<span style="color:rgb(255,179,82)"> $\Theta(1+ \text{indegree}(v))$ |
-|<u> topo. order:|for $k=1,\dots ,n$|for $k=0,1,\dots \|V\|-1$ for $v \in V$|
+| 4. <u> topological order:|for $k=1,\dots ,n$|for $k=0,1,\dots \|V\|-1$ for $v \in V$|
 |<span style="color:rgb(255,179,82)">total time:|<span style="color:rgb(255,179,82)"> $\Theta(n)$|<span style="color:rgb(255,179,82)"> $\Theta(V\cdot E)$</span> + <span style="color:pink">$\Theta(V^2)$ unless efficient about indeg. 0</span>|
-|<u>original problem:|$F_n$|$\delta_{{}_{\|V\|-1}}(s,v)$ for $v \in V$|
+| 5. <u>original problem:|$F_n$|$\delta_{{}_{\|V\|-1}}(s,v)$ for $v \in V$|
 |<span style="color:rgb(255,179,82)">extra time:|<span style="color:rgb(255,179,82)"> $\Theta(1)$|<span style="color:rgb(255,179,82)"> $\Theta(V)$|
 
 #### Text Justification
@@ -68,10 +69,10 @@ Split text into "good" lines
 
 - <u>goal</u>: split words into lines to min $\sum$ badness.
 
-1. <u>subproblem</u> = min. badness for suffix words$[i:]$
+1. <u>subproblem</u> : min. badness for <span style="color:cyan">suffix</span> words$[i:]$
 
     $\implies$ # subproblems = $\Theta(n)$ where $n =$ # words
-2. <u>guessing</u> = where to end first line, say $i:j$
+2. <u>guessing</u> : <span style="color:cyan">where to end first line (where to start 2nd line)</span>, say $i:j$
 
     $\implies$ # choices $= n-i=O(n)$
 
@@ -98,12 +99,13 @@ Split text into "good" lines
 - <span style="color:pink"> may benefit from losing one hand to improve future hands.</span>
 
 1. <u>subproblem</u>: BJ$(i)$ = best play of $\underbrace{c_{{}_i},\dots c_{{}_{n-1}}}_{\text{remaining cards}}$ where $i$ is 
-<span style="color:pink;font-size:0.8em"># cards "already played"</span>
-$\implies$ # subproblems = $n$
+<span style="color:pink;font-size:0.8em"># cards "already played"</span><br/>
+$\implies$ <span style="color:cyan"> # subproblems = $n$ choices</span>
 2. <u>guess</u> how many times player "hits" (hit means <span style="color:pink">draw another card</span>)
 
-    $\implies$ # subproblems = $n$
-3. <u>Recurrence</u>: BJ$(i)$ = max( <br/>
+    $\implies$ # choices $\leq n$
+3. <u>Recurrence</u>: 
+<br/>BJ$(i)$ = max( <br/>
     outcome $\in \{+1,0,-1\} +$ BJ$(i+ \text{\# cards used})$  <span style="color:rgb(255,179,82)">$O(n)$</span> <br/>
     for # hits in $0,1,\dots$ if valid play <span style="color:pink">~ don't hit after bust</span> <span style="color:rgb(255,179,82)">$O(n)$</span><br/>
     )
