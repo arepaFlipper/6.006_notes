@@ -31,10 +31,20 @@
   [Al Kasimi, Nichols, Raphael 2007] etc.
 </span>
 
-- given musical piece to play, say sequence of $n$ (single) notes
-with right hand
+- Given sequence of $n$ notes, find fingering for
+each note(single). Given musical piece to play, say sequence of $n$ (single) notes
+with right hand. 
 
 - fingers $1,2,\dots, F$ <span style="color:rgb(0,158,241)">$=5$ for humans</span>
+
+$p$: note
+
+$f$: finger
+
+$q$: note
+
+$g$: finger
+
 - metric $d(f,p,g,q)$ of <u>difficulty</u> going from note $p$ with finger $f$ to note
 $q$ with finger $g$
 
@@ -48,21 +58,41 @@ $q$ with finger $g$
 
 </span>
 
+
+<span style="color:cyan">
+  Q: What are the sub-problems for a set-up like this?<br/>
+  Ans: Prefixes, suffixes and substrings
+</span>
+
 ### First Attempt:
+<span style="color:red; font-weight:bold">
 1. <s style="color:red">subproblem : min. difficulty for surffix notes $[i:]$ </s>
+
+<span style="color:red; font-weight:bold">how to play notes$[i:]$</span>
+
 2. <s style="color:red">guessing : finger f for first note$[i]$</s>
+
+<span style="color:red; font-weight:bold">which finger to use for notes$n[i]$</span>
+
+
 3. recurrence: <br/>
 <s style="color:red">$DP[i]=$ min($DP[i+1]+d(note[i],f,note[i+1],$ 
   <span style="color:yellow">?</span>)for $f \cdots$)</s><br/>
 $\rightarrow$ not enough information!
 
+</span>
+
+
 #### Correct DP:
+<span style="color:green;">
 1. <u>sub-problem</u>: min. difficulty for suffix notes $[i:]$ given finger $f$ on
 first note$[i]$<br/>
 $\implies (n \cdot F) subproblems$
 
+
 2. <u>guessing</u>: finger g for next note$[i+1]$<br/>
 $\implies F$ choices
+
 
 3. <u>recurrence</u>: <br/>
 $DP[i,f]=min\left(\;DP[i+1,g]+d(note[i],f,note[i+1],g\right)$ for $g$ in range $(F)\;)$<br/>
@@ -81,6 +111,8 @@ for i in reversed(range(n)):
 5. <u>Original problem</u>= $min(FP[0,f]$ for $f$ in $1,2,\dots,F$) <br/>
 <span style="color:pink">(guessing very first finger)</span>
 ![Directed Acyclic Graph](graph0.jpg)
+
+</span>
 
 ## Guitar
 Up to $S$ ways to play same note! <span style="color:rgb(0,158,241)">(where $S$ is # strings)</span>
@@ -109,13 +141,15 @@ $\implies (F+1)^F$ such mappings
 - works for 2 hands <span style="color:rgb(0,158,241)">$F = 10$</span>
 - <span style="color:green">just need to define appropiate $d$</span>
 
-![Tetris](graph1.jpg)
 
 ## Tetris Training:
-- given sequience of $n$ Tetris pieces & an empty board of small width $w$ 
+![Tetris](graph1.jpg)
+- initially empty
+- given sequence of $n$ Tetris pieces & an empty board of small width $w$ 
 - must choose orientation & $x$ coordinate for each.
 - then must drop piece till it hits something
 - full rows <span style="color:rgb(0,158,241)">do not clear <br/> without
+
 the above two artificialities</span> <span style="color:rgb(0,158,241);font-weight:bold">WE DON'T KNOW!</span><br/>
 <span style="color:pink">but: if nonempty board & $w$ large then NP-complete</span>
 - <span style="color:cyan">goal</span>: survive $i.e.$, stay within height $h$.
@@ -154,6 +188,7 @@ Total time: $\Theta(n\cdot w\cdot h^w)$
 (<span style="color:rgb(0,158,241)">& use parent pointers to recover to recover moves</span>)
 
 ## Super Mario Bros.
+
 Platform Video Game
 - given entire level (objects, enemies, $\dots$) (<span style="color:rgb(0,158,241)">$\leftarrow n$</span>)
 - small ($w \times h$) screen
