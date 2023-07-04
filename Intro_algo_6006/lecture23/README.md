@@ -15,7 +15,7 @@
 - <u>EXP</u>$= {$ problems solvable in exponential
 <span style="color:rgb(0,158,241)">$2^{n^c}$</span> time $}$
 
-- <u>R</u> $={$ problems solvable in finite time $}$
+- <u>R</u> $= {$ problems solvable in finite time $}$
 <span style="color:rgb(0,158,241)">"recursive"</span>
 <span style="color:green">[Turing 1936: Church 1941] </span>
 
@@ -36,9 +36,10 @@ Given a computer program, does it ever halt (stop)?
 - <u>uncomputable</u> ($\in R$): no algorithm solves it (correctly in finite time on all inputs)
 - <u>decision problem</u>: answer is "YES" o "NO"
 
-### Most Decision Problems are Uncomputable
+### Most Decision Problems are **UNCOMPUTABLE**
 - program $\approx$ binary string $\approx$ nonneg. integer $\in N$
-- decision problem = a function from <u>binary strings</u>($\approx$ 
+- decision problem : <br/>
+a function from <u>binary strings</u>($\approx$ 
 <span style="color:rgb(0,158,241)">nonneg. integers</span>) to <u>boolean</u>
 ${$ YES <span style="color:rgb(0,158,241)">(1)</span> NO <span style="color:rgb(0,158,241)">(0)</span> $}$
 
@@ -52,26 +53,28 @@ ${$ YES <span style="color:rgb(0,158,241)">(1)</span> NO <span style="color:rgb(
 
 - $\implies$ almost all problems cannot be solved
 
-## NP 
+## NP (Non-deterministic Polynomial)
+
 $NP={$ Decision problems solvable in polynomial time via a "lucky" algorithm $}$.
 <span style="color:green">The "lucky" algorithm can make lucky guesses, always "right"
 <u>without</u> trying all options</span>.
 
-- <u>nondeterministic model</u>: algorithm makes guesses & then says YES or NO
+- <u>non-deterministic model</u>: algorithm makes guesses & then says YES or NO
+
 - guesses guaranteed to lead to YES outcome if possible (<span style="color:rgb(0,158,241)">no otherwise</span>)
 
-In other words, $NP={$ Decision problems solvable whit solutions that can be "checked" in polynomial time$}$.
-This means that when asnwer = YES, can "prove" it & polynomial-time algorithm can check proof.
+In other words, $NP={$ Decision problems solvable with solutions that can be "checked" in polynomial time$}$.
+This means that when answer = YES, can "prove" it & polynomial-time algorithm can check proof.
 
 #### Example:
 Tetris $\in NP$:
-- nondeterministic algorithm: guess each move, did I survive?
+- non-deterministic algorithm: guess each move, did I survive?
 - proof of YES: list what moves to make (<span style="color:rgb(0,158,241)">rules of Tetris are easy</span>).
 
 ![NP comparison](./graph1.jpg)
 
 #### P$\neq NP$
-Big conjecture $(\text{worth } \$1'000,000)$
+Big conjecture a Millenium Prize problem $(\text{worth } \$1'000,000)$
 - $\approx$ cannot engineer luck.
 - $\approx$ generating (proofs of) solutions can be harder than checking them.
 
@@ -83,7 +86,8 @@ If $P \neq NP$, then Tetris $\in (NP -P)$<br/>
 
 #### Why:
 Tetris is <u>NP-hard</u> = "as hard as" every problem $\in NP$. In fact <u>NP-complete</u> = 
-NP $\cap$ NP-hard.
+NP $\cap$ NP-hard. We cannot say harder than NP because it's non-strict, so it's at least as hard as every
+problem in NP.
 ![Hardness](./graph2.jpg)
 
 #### Similarly:
@@ -94,6 +98,23 @@ problem but less famous/"important".
 ### Reductions
 Convert your problem into a problem you already know how to solve
 (<m style="color:rgb(0,158,241)">instead of solving from scratch</m>).
+
+<span style="color:cyan">
+
+  Q: how to solve a "shortest path problem"?
+
+  A: BFS, Djikstra, Bellman-Ford
+
+  But Djikstra solves weighted shortest paths, and my problem has no weights.
+
+  Q:What do we do? 
+
+  A: set all weights to 1
+
+</span>
+
+
+
 
 - most common algorithm design techniques.
 - unweighted shortest path $\rightarrow$ weighted (<m style="color:rgb(0,158,241)">set weights $=1$</m>).
