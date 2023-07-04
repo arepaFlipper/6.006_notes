@@ -19,7 +19,7 @@
 <span style="color:rgb(0,158,241)">"recursive"</span>
 <span style="color:green">[Turing 1936: Church 1941] </span>
 
-<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![Comparisons](./graph0.jpg)
 
 #### Examples
 - negative-weight cycle detection $\in P$
@@ -68,7 +68,7 @@ Tetris $\in NP$:
 - nondeterministic algorithm: guess each move, did I survive?
 - proof of YES: list what moves to make (<span style="color:rgb(0,158,241)">rules of Tetris are easy</span>).
 
-<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![NP comparison](./graph1.jpg)
 
 #### P$\neq NP$
 Big conjecture $(\text{worth } \$1'000,000)$
@@ -84,8 +84,7 @@ If $P \neq NP$, then Tetris $\in (NP -P)$<br/>
 #### Why:
 Tetris is <u>NP-hard</u> = "as hard as" every problem $\in NP$. In fact <u>NP-complete</u> = 
 NP $\cap$ NP-hard.
-
-<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![Hardness](./graph2.jpg)
 
 #### Similarly:
 Chess is <u>EXP-complete</u> = EXP $\cap$ EXP-hard. EXP-hard as hard as every problem
