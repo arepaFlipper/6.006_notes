@@ -2,7 +2,7 @@
 
 <h2 style="color:red">Processor Architecture</h2>
 
-Computer architecture has evolved:
+Personal Computer architecture has evolved:
 - Intel 8086 (1981): 5MHz (used in first IBM PC)
 - Intel 80486 (1989): 25MHz (became i486 because of a court ruling that 
 prohibits the trademarking of numbers).
@@ -21,7 +21,10 @@ $\approx$ 4 memory requests in parallel.
 
 
 
-<span style="color:red">$: cache P: processor</span> 
+- <span style="color:red"> P: processor</span> 
+
+- <span style="color:brown">$: cache</span> 
+
 
 ![processor](graph1.jpg)
 Most of the time program running on the processor accesses local or "cache" memory
@@ -71,8 +74,8 @@ Decide when to migrate to minimize total memory cost of trace For example:
 
 ![img](graph4.jpg)
 
-<h4 style="color:red">What can we use to solve this problem?</h4>
-<h4 style="color:green">Dynamic programming!</h4>
+<h4 style="color:red">Q: What can we use to solve this problem?</h4>
+<h4 style="color:green">A: Dynamic programming!</h4>
 
 ### Dynamic Programming Solution
 Program at $p$, initially, number of processors = $Q$
@@ -93,6 +96,8 @@ accesses when program starts at $p_{{}_1}$ and ends up at $p_{{}_i}$.
 </span>
 
 <h4 style="color:red">Complexity?</h4>
+
+\# of sub-problems = $N\cdot Q$ 
 
 <span style="color:green">
 
