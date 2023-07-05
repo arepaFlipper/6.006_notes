@@ -14,7 +14,7 @@ prohibits the trademarking of numbers).
 to performance scaling)
 <h4 style="color:red">Processors need data to compute on:</h4>
 
--<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![processor](graph0.jpg)
 
 <span style="color:red">Problem</span>: SRAM cannot support more than
 $\approx$ 4 memory requests in parallel.
@@ -23,13 +23,12 @@ $\approx$ 4 memory requests in parallel.
 
 <span style="color:red">$: cache P: processor</span> 
 
--<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
-
+![processor](graph1.jpg)
 Most of the time program running on the processor accesses local or "cache" memory
 
 Every once in a while, it accesses remote memory:
 
--<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![processor](graph2.jpg)
 
 <span style="color:red">Round-trip required to obtain data</span>
 
@@ -37,8 +36,7 @@ Every once in a while, it accesses remote memory:
 
 When program running on a processor needs to access cache memory of another processor,
 it migrates its "context" to the remote processor and executes there:
-
--<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![processor](graph3.jpg)
 
 <span style="color:red">One-way trip for data access</span>
 
@@ -71,7 +69,7 @@ if $s==d$, costs are defined to be 0
 
 Decide when to migrate to minimize total memory cost of trace For example:
 
--<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![img](graph4.jpg)
 
 <h4 style="color:red">What can we use to solve this problem?</h4>
 <h4 style="color:green">Dynamic programming!</h4>
@@ -136,7 +134,7 @@ Two aspects: dedign and foldability
   - hyperbolic paraboloid <d style="color:pink">[Bauhans (1929)]</d>
   doesn't exist <d style="color:pink">[Demaine, Demaine, Hart, Price, Tachi (2009)]</d>
 
--<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![fold](graph5.jpg)
 
   - understanding circular creases.
   - any straight-line graph can be made by folding flat & one straight cut 
@@ -170,7 +168,7 @@ subject to insert, delete, predecessor, successor (<d style="color:rgb(0,255,255
   - sorting takes $\Theta(\frac{N}{B} \cdot \log_C \frac{N}{B})$ transfers
   - possible even if you don't know $B$ & $C$!
 
--<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![data structures](graph6.jpg)
 
 #### (Almost) Planar Graphs: [6.899], Videos Online
 - Dijsktra in $O(n)$ time <d style="color:pink">[Henzinger, Klein, Rao, Subramanian, (1997)]</d>
@@ -178,7 +176,7 @@ subject to insert, delete, predecessor, successor (<d style="color:rgb(0,255,255
 <d style="color:pink">[Mozes & Wolff-Nilson (2010)]</d>
 - Many problems NP-hard, even on planar graphs. But can find a solution within $1+\epsilon$
 
--<h1 style="color:yellow">⚠️⚠️[You owe me a figure here]⚠️⚠️</h1>
+![planar graphs](graph7.jpg)
 
 factor of optimal, for any $\in$ [Baker 1994 & Others]:
 
