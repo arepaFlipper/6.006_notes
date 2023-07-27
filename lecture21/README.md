@@ -21,13 +21,13 @@
 (text justification, Blackjack) are on sequences (words, cards)
 
 <span style="color:rgb(255,0,0)">*</span> useful problems for strings/sequences $x$:
-![strings/sequences](graph3.jpg)
+![strings/sequence](https://github.com/arepaFlipper/6.006_notes/blob/main/lecture21/graph3.jpg)
 
 ## Parenthesization:
 Optimal evaluation of associative expression $(A[0]\cdot A[1]) \cdot \dots (\dots)\cdot A[n-1]$ --- e.g., multiplying rectangular matrices:
-![graph1.jpg](graph1.jpg)
-![matrix](graph5.jpg)
-![scalar](graph6.jpg)
+![graph1.jpg](https://github.com/arepaFlipper/6.006_notes/blob/main/lecture21/graph1.jpg)
+![matrix](https://github.com/arepaFlipper/6.006_notes/blob/main/lecture21/graph5.jpg)
+![scalar](https://github.com/arepaFlipper/6.006_notes/blob/main/lecture21/graph6.jpg)
 
 2. <u>guessing</u> : outermost multiplication
 <span style="color:rgb(0,158,241)">$(\underbrace{A_{{}_0}\cdots A_{{}_{k-1}}}_{k-1})\cdot(\underbrace{A_{{}_{k}}\cdots A_{{}_{n-1}} }_{k})$</span>
@@ -64,7 +64,7 @@ Optimal evaluation of associative expression $(A[0]\cdot A[1]) \cdot \dots (\dot
 NOTE:</span> Above DP is <u>not</u> shortest paths in the subproblem DAG!<br/>
 Two dependencies $\implies$ not paths!
 
-![board explanation](graph9.jpg)
+![board explanation](https://github.com/arepaFlipper/6.006_notes/blob/main/lecture21/graph9.jpg)
 ### Edit Distance
 <span style="color:pink">Used for DNA comparison, diff, CVS/SVN/..., spellchecking (typos),
 plagiarism detection, etc.</span>
@@ -107,7 +107,7 @@ A N G E
 
 (2) <u>guess</u>: whether, to turn $x$ into $y$,(<span style="color:rgb(0,158,241)">3 choices</span>):
 
-<img src="graph10.jpg" style="height:200px; display: block; margin-left: auto; margin-right: auto">
+<img src="https://github.com/arepaFlipper/6.006_notes/blob/main/lecture21/graph10.jpg" style="height:200px; display: block; margin-left: auto; margin-right: auto">
 
 - $x[i]$ replacement by $y[j]$
 - $x[i]$ deletion
